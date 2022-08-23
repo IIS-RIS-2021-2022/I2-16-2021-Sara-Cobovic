@@ -70,45 +70,28 @@ public class DlgDonut extends JDialog {
 		txtRadius.setColumns(10);
 		txtInnerRadius = new JTextField();
 		txtInnerRadius.setColumns(10);
-		JButton btnOutline = new JButton("OUTLINE");
-		btnOutline.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				color = JColorChooser.showDialog(null, "Choose a color", null);
-				btnOutline.setBackground(color);
-			}
-		});
-		JButton btnFill = new JButton("FILL");
-		btnFill.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				innerColor = JColorChooser.showDialog(null, "Choose a color", null);
-				btnFill.setBackground(innerColor);
-			}
-		});
 		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
 		gl_contentPanel.setHorizontalGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPanel.createSequentialGroup().addGroup(gl_contentPanel
-						.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPanel.createSequentialGroup().addGap(31).addGroup(gl_contentPanel
 								.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_contentPanel.createSequentialGroup().addComponent(lblCenterXCoordinate)
-										.addGap(18).addComponent(txtX, GroupLayout.PREFERRED_SIZE,
-												GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-								.addGroup(gl_contentPanel.createSequentialGroup().addComponent(lblCenterYCoordinate)
-										.addGap(18)
-										.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
-												.addComponent(txtRadius, GroupLayout.PREFERRED_SIZE,
-														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-												.addComponent(txtY, GroupLayout.PREFERRED_SIZE,
-														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-												.addComponent(txtInnerRadius, GroupLayout.PREFERRED_SIZE,
-														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))))
-						.addGroup(gl_contentPanel.createSequentialGroup().addGap(60)
-								.addGroup(gl_contentPanel.createParallelGroup(Alignment.TRAILING)
-										.addComponent(lblInnerRadius).addComponent(lblRadius))))
-						.addContainerGap(79, Short.MAX_VALUE))
-				.addGroup(gl_contentPanel.createSequentialGroup().addGap(21).addComponent(btnOutline)
-						.addPreferredGap(ComponentPlacement.RELATED, 92, Short.MAX_VALUE).addComponent(btnFill)
-						.addGap(37)));
+								.addGroup(gl_contentPanel.createSequentialGroup().addGap(31).addGroup(gl_contentPanel
+										.createParallelGroup(Alignment.LEADING)
+										.addGroup(gl_contentPanel.createSequentialGroup().addComponent(lblCenterXCoordinate)
+												.addGap(18).addComponent(txtX, GroupLayout.PREFERRED_SIZE,
+														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+										.addGroup(gl_contentPanel.createSequentialGroup().addComponent(lblCenterYCoordinate)
+												.addGap(18)
+												.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
+														.addComponent(txtRadius, GroupLayout.PREFERRED_SIZE,
+																GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+														.addComponent(txtY, GroupLayout.PREFERRED_SIZE,
+																GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+														.addComponent(txtInnerRadius, GroupLayout.PREFERRED_SIZE,
+																GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))))
+								.addGroup(gl_contentPanel.createSequentialGroup().addGap(60)
+										.addGroup(gl_contentPanel.createParallelGroup(Alignment.TRAILING)
+												.addComponent(lblInnerRadius).addComponent(lblRadius))))
+						.addContainerGap(79, Short.MAX_VALUE)));
 		gl_contentPanel.setVerticalGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING).addGroup(gl_contentPanel
 				.createSequentialGroup().addGap(24)
 				.addGroup(gl_contentPanel
@@ -126,8 +109,7 @@ public class DlgDonut extends JDialog {
 						.addComponent(txtInnerRadius, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
 								GroupLayout.PREFERRED_SIZE))
 				.addPreferredGap(ComponentPlacement.RELATED, 23, Short.MAX_VALUE).addGroup(gl_contentPanel
-						.createParallelGroup(Alignment.BASELINE).addComponent(btnOutline).addComponent(btnFill))
-				.addContainerGap()));
+						.createParallelGroup(Alignment.BASELINE))));
 		contentPanel.setLayout(gl_contentPanel);
 		{
 			JPanel buttonPane = new JPanel();
@@ -291,7 +273,7 @@ public class DlgDonut extends JDialog {
 
 	public Donut getDonut() {
 		return new Donut(new Point(Integer.parseInt(txtX.getText()), Integer.parseInt(txtY.getText())),
-				Integer.parseInt(txtRadius.getText()), Integer.parseInt(txtInnerRadius.getText()), color, innerColor);
+				Integer.parseInt(txtRadius.getText()), Integer.parseInt(txtInnerRadius.getText()), d.getColor(), d.getInnerColor());
 	}
 
 }

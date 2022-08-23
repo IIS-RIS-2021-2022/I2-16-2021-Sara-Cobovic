@@ -26,8 +26,6 @@ public class DlgCircle extends JDialog {
 	private JTextField txtX;
 	private JTextField txtY;
 	private JTextField txtRadius;
-	private JButton btnOutline;
-	private JButton btnFill;
 	private Color color;
 	private Color innerColor;
 	private boolean isOk;
@@ -67,43 +65,26 @@ public class DlgCircle extends JDialog {
 		txtY.setColumns(10);
 		txtRadius = new JTextField();
 		txtRadius.setColumns(10);
-		JButton btnOutline = new JButton("OUTLINE");
-		btnOutline.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				color = JColorChooser.showDialog(null, "Choose a color", null);
-				btnOutline.setBackground(color);
-			}
-		});
-		JButton btnFill = new JButton("FILL");
-		btnFill.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				innerColor = JColorChooser.showDialog(null, "Choose a color", null);
-				btnFill.setBackground(innerColor);
-			}
-		});
 		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
 		gl_contentPanel.setHorizontalGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING,
-						gl_contentPanel.createSequentialGroup().addContainerGap(290, Short.MAX_VALUE)
-								.addComponent(btnFill).addGap(32))
+
 				.addGroup(gl_contentPanel.createSequentialGroup().addGroup(gl_contentPanel
-						.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPanel.createSequentialGroup().addGap(32).addGroup(gl_contentPanel
 								.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_contentPanel.createSequentialGroup().addGap(13)
-										.addComponent(lblCenterXCoordinate).addGap(18).addComponent(txtX,
-												GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-												GroupLayout.PREFERRED_SIZE))
-								.addGroup(Alignment.TRAILING, gl_contentPanel.createParallelGroup(Alignment.LEADING)
-										.addComponent(btnOutline)
-										.addGroup(gl_contentPanel.createSequentialGroup()
-												.addComponent(lblCenterYCoordinate).addGap(18).addComponent(txtY,
+								.addGroup(gl_contentPanel.createSequentialGroup().addGap(32).addGroup(gl_contentPanel
+										.createParallelGroup(Alignment.LEADING)
+										.addGroup(gl_contentPanel.createSequentialGroup().addGap(13)
+												.addComponent(lblCenterXCoordinate).addGap(18).addComponent(txtX,
 														GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-														GroupLayout.PREFERRED_SIZE)))))
-						.addGroup(Alignment.TRAILING,
-								gl_contentPanel.createSequentialGroup().addContainerGap().addComponent(lblRadius)
-										.addGap(18).addComponent(txtRadius, GroupLayout.PREFERRED_SIZE,
-												GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+														GroupLayout.PREFERRED_SIZE))
+										.addGroup(Alignment.TRAILING, gl_contentPanel.createParallelGroup(Alignment.LEADING)
+												.addGroup(gl_contentPanel.createSequentialGroup()
+														.addComponent(lblCenterYCoordinate).addGap(18).addComponent(txtY,
+																GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+																GroupLayout.PREFERRED_SIZE)))))
+								.addGroup(Alignment.TRAILING,
+										gl_contentPanel.createSequentialGroup().addContainerGap().addComponent(lblRadius)
+												.addGap(18).addComponent(txtRadius, GroupLayout.PREFERRED_SIZE,
+														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 						.addContainerGap(126, Short.MAX_VALUE)));
 		gl_contentPanel
 				.setVerticalGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
@@ -122,10 +103,7 @@ public class DlgCircle extends JDialog {
 										.addComponent(txtRadius, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
 												GroupLayout.PREFERRED_SIZE)
 										.addComponent(lblRadius))
-								.addPreferredGap(ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-								.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE).addComponent(btnFill)
-										.addComponent(btnOutline))
-								.addContainerGap()));
+								.addPreferredGap(ComponentPlacement.RELATED, 28, Short.MAX_VALUE)));
 		contentPanel.setLayout(gl_contentPanel);
 		{
 			JPanel buttonPane = new JPanel();
@@ -208,22 +186,6 @@ public class DlgCircle extends JDialog {
 		this.txtRadius = txtRadius;
 	}
 
-	public JButton getBtnOutline() {
-		return btnOutline;
-	}
-
-	public void setBtnOutline(JButton btnOutline) {
-		this.btnOutline = btnOutline;
-	}
-
-	public JButton getBtnFill() {
-		return btnFill;
-	}
-
-	public void setBtnFill(JButton btnFill) {
-		this.btnFill = btnFill;
-	}
-
 	public Color getColor() {
 		return color;
 	}
@@ -276,7 +238,7 @@ public class DlgCircle extends JDialog {
 
 	public Circle getCircle() {
 		return new Circle(new Point(Integer.parseInt(txtX.getText()), Integer.parseInt(txtY.getText())),
-				Integer.parseInt(txtRadius.getText()), color, innerColor);
+				Integer.parseInt(txtRadius.getText()), c.getColor(), c.getInnerColor());
 	}
 
 }

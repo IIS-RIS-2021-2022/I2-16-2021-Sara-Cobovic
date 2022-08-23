@@ -6,8 +6,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+import javax.swing.*;
 import java.awt.Color;
 
 public class PnlDrawing extends JPanel {
@@ -16,6 +15,9 @@ public class PnlDrawing extends JPanel {
 	ArrayList<Shape> shapes = new ArrayList<Shape>();
 	Point startPoint;
 	Shape selected;
+
+	Color color;
+	Color innerColor;
 
 	public PnlDrawing() {
 		setBackground(new Color(220, 220, 220));
@@ -29,6 +31,8 @@ public class PnlDrawing extends JPanel {
 				thisMouseClicked(arg0);
 			}
 		});
+		this.color = Color.BLACK;
+		this.innerColor = Color.WHITE;
 
 	}
 
@@ -47,32 +51,31 @@ public class PnlDrawing extends JPanel {
 			if (selected != null)
 				selected.setSelected(true);
 		} else if (frame.getTglbtnPoint().isSelected()) {
-				newShape = new Point(e.getX(), e.getY(), Color.BLACK);
+			newShape = new Point(e.getX(), e.getY(), innerColor);
 		} else if (frame.getTglbtnLine().isSelected()) {
 			if (startPoint == null)
 				startPoint = new Point(e.getX(), e.getY());
 			else {
-				newShape = new Line(startPoint, new Point(e.getX(), e.getY()), Color.BLACK);
+				newShape = new Line(startPoint, new Point(e.getX(), e.getY()), innerColor);
 				startPoint = null;
 			}
 
 		} else if (frame.getTglbtnRectangle().isSelected()) {
 			DlgRectangle dlg = new DlgRectangle();
 			dlg.setModal(true);
-			dlg.setRectangle(new Rectangle(new Point(e.getX(), e.getY()), -1, -1));
+			dlg.setRectangle(new Rectangle(new Point(e.getX(), e.getY()), -1, -1, color, innerColor));
 			dlg.setVisible(true);
 			if (!dlg.isOk())
 				return;
 			try {
 				newShape = dlg.getRectangle();
-
 			} catch (Exception ex) {
 				JOptionPane.showMessageDialog(frame, "Wrong data type", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 		} else if (frame.getTglbtnCircle().isSelected()) {
 			DlgCircle dlg = new DlgCircle();
 			dlg.setModal(true);
-			dlg.setCircle(new Circle(new Point(e.getX(), e.getY()), -1));
+			dlg.setCircle(new Circle(new Point(e.getX(), e.getY()), -1, color, innerColor));
 			dlg.setVisible(true);
 			if (!dlg.isOk())
 				return;
@@ -85,7 +88,7 @@ public class PnlDrawing extends JPanel {
 		} else if (frame.getTglbtnDonut().isSelected()) {
 			DlgDonut dlg = new DlgDonut();
 			dlg.setModal(true);
-			dlg.setDonut(new Donut(new Point(e.getX(), e.getY()), -1, -1));
+			dlg.setDonut(new Donut(new Point(e.getX(), e.getY()), -1, -1, color, innerColor));
 			dlg.setVisible(true);
 			if (!dlg.isOk())
 				return;
@@ -129,6 +132,10 @@ public class PnlDrawing extends JPanel {
 
 	// modify metoda
 	public void modify() {
+		if (shapes.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "You need to add shape first!");
+			return;
+		}
 		if (selected != null) {
 			if (selected instanceof Point) {
 				Point p = (Point) selected;
@@ -206,6 +213,9 @@ public class PnlDrawing extends JPanel {
 
 				}
 
+			} else {
+				JOptionPane.showMessageDialog(null, "You need to select a shape!");
+				return;
 			}
 			repaint();
 		}
@@ -227,4 +237,43 @@ public class PnlDrawing extends JPanel {
 		this.selected = selected;
 	}
 
+	public Color getColor() {
+		return color;
+	}
+
+	public Color getInnerColor() {
+		return innerColor;
+	}
+
+	public void setColor(Color color) {
+		this.color = color;
+	}
+
+	public void setInnerColor(Color innerColor) {
+		this.innerColor = innerColor;
+	}
+
+	public void colorChange() {
+		color = JColorChooser.showDialog(null, "Choose a color", null);
+		frame.getColorChange().setBackground(color);
+		if(selected != null) {
+			selected.setColor(color);
+		}
+		repaint();
+	}
+
+	public void innerColorChange() {
+		innerColor = JColorChooser.showDialog(null, "Choose a color", null);
+		frame.getInnerColorChange().setBackground(innerColor);
+		if(selected != null) {
+			if(selected instanceof Rectangle) {
+				Rectangle r = (Rectangle) selected;
+				r.setInnerColor(innerColor);
+			} else if (selected instanceof Circle) {
+				Circle c = (Circle) selected;
+				c.setInnerColor(innerColor);
+			}
+		}
+		repaint();
+	}
 }

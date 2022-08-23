@@ -31,8 +31,6 @@ public class DlgRectangle extends JDialog {
 	private Color color;
 	private Color innerColor;
 	private boolean isOk;
-	private JButton btnOutline;
-	private JButton btnFill;
 	private Rectangle r;
 	protected boolean isClicked;
 
@@ -67,20 +65,6 @@ public class DlgRectangle extends JDialog {
 		JLabel lblWidth = new JLabel("Width:");
 		JLabel lblHeight = new JLabel("Height:");
 
-		JButton btnOutline = new JButton("OUTLINE");
-		btnOutline.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				color = JColorChooser.showDialog(null, "Choose a color", null);
-				btnOutline.setBackground(color);
-			}
-		});
-		JButton btnFill = new JButton("FILL");
-		btnFill.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				innerColor = JColorChooser.showDialog(null, "Choose a color", null);
-				btnFill.setBackground(innerColor);
-			}
-		});
 		txtX = new JTextField();
 		txtX.setColumns(10);
 		txtY = new JTextField();
@@ -115,10 +99,7 @@ public class DlgRectangle extends JDialog {
 														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 												.addComponent(txtY, GroupLayout.PREFERRED_SIZE,
 														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
-						.addContainerGap(118, Short.MAX_VALUE))
-				.addGroup(gl_contentPanel.createSequentialGroup().addContainerGap().addComponent(btnOutline)
-						.addPreferredGap(ComponentPlacement.RELATED, 176, Short.MAX_VALUE).addComponent(btnFill)
-						.addGap(19)));
+						.addContainerGap(118, Short.MAX_VALUE)));
 		gl_contentPanel.setVerticalGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING).addGroup(gl_contentPanel
 				.createSequentialGroup().addGap(26)
 				.addGroup(
@@ -137,9 +118,7 @@ public class DlgRectangle extends JDialog {
 				.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(txtHeight, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
 								GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblHeight))
-				.addGap(18).addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE).addComponent(btnOutline)
-						.addComponent(btnFill))));
+						.addComponent(lblHeight))));
 		contentPanel.setLayout(gl_contentPanel);
 		{
 			JPanel buttonPane = new JPanel();
@@ -265,22 +244,6 @@ public class DlgRectangle extends JDialog {
 		this.isOk = isOk;
 	}
 
-	public JButton getBtnOutline() {
-		return btnOutline;
-	}
-
-	public void setBtnOutline(JButton btnOutline) {
-		this.btnOutline = btnOutline;
-	}
-
-	public JButton getBtnFill() {
-		return btnFill;
-	}
-
-	public void setBtnFill(JButton btnFill) {
-		this.btnFill = btnFill;
-	}
-
 	public boolean isClicked() {
 		return isClicked;
 	}
@@ -313,7 +276,7 @@ public class DlgRectangle extends JDialog {
 
 	public Rectangle getRectangle() {
 		return new Rectangle(new Point(Integer.parseInt(txtX.getText()), Integer.parseInt(txtY.getText())),
-				Integer.parseInt(txtWidth.getText()), Integer.parseInt(txtHeight.getText()), color, innerColor);
+				Integer.parseInt(txtWidth.getText()), Integer.parseInt(txtHeight.getText()), r.getColor(), r.getInnerColor());
 	}
 
 }
