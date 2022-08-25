@@ -1,5 +1,7 @@
 package drawing;
 
+import drawing.command.*;
+
 import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -50,6 +52,7 @@ public class PnlDrawing extends JPanel {
 			}
 			if (selected != null)
 				selected.setSelected(true);
+			repaint();
 		} else if (frame.getTglbtnPoint().isSelected()) {
 			newShape = new Point(e.getX(), e.getY(), innerColor);
 		} else if (frame.getTglbtnLine().isSelected()) {
@@ -100,8 +103,7 @@ public class PnlDrawing extends JPanel {
 			}
 		}
 		if (newShape != null)
-			shapes.add(newShape);
-		repaint();
+			CommandManager.addCommand(new AddCommand(newShape, this));
 	}
 
 	// paint metoda
@@ -124,9 +126,8 @@ public class PnlDrawing extends JPanel {
 			int question = JOptionPane.showConfirmDialog(null, "Are you sure?", "Delete shape",
 					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 			if (question == 0) {
-				shapes.remove(selected);
+				CommandManager.addCommand(new DeleteCommand(selected, this));
 			}
-			repaint();
 		}
 	}
 
@@ -137,6 +138,7 @@ public class PnlDrawing extends JPanel {
 			return;
 		}
 		if (selected != null) {
+			CommandManager.addCommand(new ModifyCommand(selected, this));
 			if (selected instanceof Point) {
 				Point p = (Point) selected;
 				DlgPoint dlgPoint = new DlgPoint();
@@ -213,12 +215,12 @@ public class PnlDrawing extends JPanel {
 
 				}
 
-			} else {
-				JOptionPane.showMessageDialog(null, "You need to select a shape!");
-				return;
 			}
-			repaint();
+		} else {
+			JOptionPane.showMessageDialog(null, "You need to select a shape!");
+			return;
 		}
+		repaint();
 	}
 
 	public ArrayList<Shape> getShapes() {
@@ -253,10 +255,15 @@ public class PnlDrawing extends JPanel {
 		this.innerColor = innerColor;
 	}
 
+	public FrmDrawing getFrame() {
+		return frame;
+	}
+
 	public void colorChange() {
 		color = JColorChooser.showDialog(null, "Choose a color", null);
 		frame.getColorChange().setBackground(color);
-		if(selected != null) {
+		if (selected != null) {
+			CommandManager.addCommand(new ChangeColorCommand(selected, this, color));
 			selected.setColor(color);
 		}
 		repaint();
@@ -265,14 +272,8 @@ public class PnlDrawing extends JPanel {
 	public void innerColorChange() {
 		innerColor = JColorChooser.showDialog(null, "Choose a color", null);
 		frame.getInnerColorChange().setBackground(innerColor);
-		if(selected != null) {
-			if(selected instanceof Rectangle) {
-				Rectangle r = (Rectangle) selected;
-				r.setInnerColor(innerColor);
-			} else if (selected instanceof Circle) {
-				Circle c = (Circle) selected;
-				c.setInnerColor(innerColor);
-			}
+		if (selected != null) {
+			CommandManager.addCommand(new ChangeInnerColorCommand(selected, this, innerColor));
 		}
 		repaint();
 	}

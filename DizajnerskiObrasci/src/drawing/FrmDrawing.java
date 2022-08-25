@@ -1,5 +1,7 @@
 package drawing;
 
+import drawing.command.CommandManager;
+
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
@@ -21,6 +23,8 @@ public class FrmDrawing extends JFrame {
 	JToggleButton tglbtnSelection;
 	JButton btnModify;
 	JButton btnDelete;
+	JButton btnDo;
+	JButton btnUndo;
 	JButton colorChange;
 	JButton innerColorChange;
 	private ButtonGroup btnGroup = new ButtonGroup();
@@ -79,6 +83,27 @@ public class FrmDrawing extends JFrame {
 		tglbtnDonut = new JToggleButton("Donut");
 		toolBar.add(tglbtnDonut);
 		btnGroup.add(tglbtnDonut);
+
+		btnUndo = new JButton("Undo");
+		toolBar.add(btnUndo);
+		btnUndo.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				CommandManager.undoCommand();
+			}
+		});
+		btnUndo.setEnabled(false);
+
+		btnDo = new JButton("Redo");
+		toolBar.add(btnDo);
+		btnDo.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				CommandManager.doCommand();
+			}
+		});
+		btnDo.setEnabled(false);
+
 
 		toolBar.add(new JLabel("Fill:"));
 
@@ -210,5 +235,13 @@ public class FrmDrawing extends JFrame {
 
 	public void setInnerColorChange(JButton innerColorChange) {
 		this.innerColorChange = innerColorChange;
+	}
+
+	public JButton getBtnDo() {
+		return btnDo;
+	}
+
+	public JButton getBtnUndo() {
+		return btnUndo;
 	}
 }
