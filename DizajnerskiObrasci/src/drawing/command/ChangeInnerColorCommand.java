@@ -4,6 +4,7 @@ import drawing.Circle;
 import drawing.PnlDrawing;
 import drawing.Rectangle;
 import drawing.Shape;
+import drawing.logging.Logger;
 
 import java.awt.*;
 
@@ -28,6 +29,7 @@ public class ChangeInnerColorCommand extends Command{
             c.setInnerColor(newColor);
         }
         pnlDrawing.repaint();
+        Logger.addLog("Change inner color " + shape);
     }
 
     @Override
@@ -40,5 +42,6 @@ public class ChangeInnerColorCommand extends Command{
             c.setInnerColor(oldColor);
         }
         pnlDrawing.repaint();
+        Logger.addLog("Undo change inner color " + shape);
     }
 }

@@ -108,7 +108,7 @@ public class Point extends Shape {
 
 	public String toString() {
 		// (x,y)
-		return "(" + x + "," + y + ")";
+		return "Point x=" + x + ", y=" + y;
 	}
 
 }

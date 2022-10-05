@@ -114,7 +114,7 @@ public class Line extends Shape {
 
 	@Override
 	public String toString() {
-		return "startPoint=" + startPoint + ", endPoint=" + endPoint;
+		return "Line startPoint=" + startPoint + ", endPoint=" + endPoint;
 	}
 
 }

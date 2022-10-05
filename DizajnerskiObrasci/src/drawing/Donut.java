@@ -98,7 +98,7 @@ public class Donut extends Circle {
 
 	@Override
 	public String toString() {
-		return "innerRadius=" + innerRadius;
+		return "Donut center=" + getCenter() + ", radius=" + getRadius() + ", innerRadius=" + innerRadius;
 	}
 
 }

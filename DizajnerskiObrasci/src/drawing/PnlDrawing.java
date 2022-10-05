@@ -1,6 +1,7 @@
 package drawing;
 
 import drawing.command.*;
+import drawing.logging.Logger;
 
 import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
@@ -46,18 +47,15 @@ public class PnlDrawing extends JPanel {
 			while (it.hasNext()) {
 				Shape shape = it.next();
 				shape.setSelected(false);
-				if (shape.contains(e.getX(), e.getY()))
-					selected = shape;
+				if (shape.contains(e.getX(), e.getY())) selected = shape;
 
 			}
-			if (selected != null)
-				selected.setSelected(true);
+			if (selected != null) selected.setSelected(true);
 			repaint();
 		} else if (frame.getTglbtnPoint().isSelected()) {
 			newShape = new Point(e.getX(), e.getY(), innerColor);
 		} else if (frame.getTglbtnLine().isSelected()) {
-			if (startPoint == null)
-				startPoint = new Point(e.getX(), e.getY());
+			if (startPoint == null) startPoint = new Point(e.getX(), e.getY());
 			else {
 				newShape = new Line(startPoint, new Point(e.getX(), e.getY()), innerColor);
 				startPoint = null;
@@ -68,8 +66,7 @@ public class PnlDrawing extends JPanel {
 			dlg.setModal(true);
 			dlg.setRectangle(new Rectangle(new Point(e.getX(), e.getY()), -1, -1, color, innerColor));
 			dlg.setVisible(true);
-			if (!dlg.isOk())
-				return;
+			if (!dlg.isOk()) return;
 			try {
 				newShape = dlg.getRectangle();
 			} catch (Exception ex) {
@@ -80,8 +77,7 @@ public class PnlDrawing extends JPanel {
 			dlg.setModal(true);
 			dlg.setCircle(new Circle(new Point(e.getX(), e.getY()), -1, color, innerColor));
 			dlg.setVisible(true);
-			if (!dlg.isOk())
-				return;
+			if (!dlg.isOk()) return;
 			try {
 				newShape = dlg.getCircle();
 
@@ -93,8 +89,7 @@ public class PnlDrawing extends JPanel {
 			dlg.setModal(true);
 			dlg.setDonut(new Donut(new Point(e.getX(), e.getY()), -1, -1, color, innerColor));
 			dlg.setVisible(true);
-			if (!dlg.isOk())
-				return;
+			if (!dlg.isOk()) return;
 			try {
 				newShape = dlg.getDonut();
 
@@ -102,8 +97,16 @@ public class PnlDrawing extends JPanel {
 				JOptionPane.showMessageDialog(frame, "Wrong data type", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 		}
-		if (newShape != null)
-			CommandManager.addCommand(new AddCommand(newShape, this));
+		if(selected != null) {
+			frame.getBtnDelete().setEnabled(true);
+			frame.getBtnModify().setEnabled(true);
+			Logger.addLog("Selected " + selected);
+		} else {
+			frame.getBtnDelete().setEnabled(false);
+			frame.getBtnModify().setEnabled(false);
+			Logger.addLog("Deselected");
+		}
+		if (newShape != null) CommandManager.addCommand(new AddCommand(newShape, this));
 	}
 
 	// paint metoda
@@ -118,13 +121,10 @@ public class PnlDrawing extends JPanel {
 
 	// delete metoda
 	public void delete() {
-		if (shapes.isEmpty())
-			JOptionPane.showMessageDialog(null, "You need to add shape first!");
-		else if (selected == null)
-			JOptionPane.showMessageDialog(null, "You need to select a shape!");
+		if (shapes.isEmpty()) JOptionPane.showMessageDialog(null, "You need to add shape first!");
+		else if (selected == null) JOptionPane.showMessageDialog(null, "You need to select a shape!");
 		else {
-			int question = JOptionPane.showConfirmDialog(null, "Are you sure?", "Delete shape",
-					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+			int question = JOptionPane.showConfirmDialog(null, "Are you sure?", "Delete shape", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 			if (question == 0) {
 				CommandManager.addCommand(new DeleteCommand(selected, this));
 			}
@@ -159,10 +159,8 @@ public class PnlDrawing extends JPanel {
 				dlgLine.setModal(true);
 				dlgLine.setVisible(true);
 				if (dlgLine.isOk()) {
-					l.setStartPoint(new Point(Integer.parseInt(dlgLine.getTxtStartX().getText()),
-							Integer.parseInt(dlgLine.getTxtStartY().getText())));
-					l.setEndPoint(new Point(Integer.parseInt(dlgLine.getTxtEndX().getText()),
-							Integer.parseInt(dlgLine.getTxtEndY().getText())));
+					l.setStartPoint(new Point(Integer.parseInt(dlgLine.getTxtStartX().getText()), Integer.parseInt(dlgLine.getTxtStartY().getText())));
+					l.setEndPoint(new Point(Integer.parseInt(dlgLine.getTxtEndX().getText()), Integer.parseInt(dlgLine.getTxtEndY().getText())));
 					l.setColor(dlgLine.getColor());
 				}
 
@@ -177,8 +175,7 @@ public class PnlDrawing extends JPanel {
 				if (dlgRect.isOk()) {
 					r.setHeight(Integer.parseInt(dlgRect.getTxtHeight().getText()));
 					r.setWidth(Integer.parseInt(dlgRect.getTxtWidth().getText()));
-					r.setUpperLeftPoint(new Point(Integer.parseInt(dlgRect.getTxtX().getText()),
-							Integer.parseInt(dlgRect.getTxtY().getText())));
+					r.setUpperLeftPoint(new Point(Integer.parseInt(dlgRect.getTxtX().getText()), Integer.parseInt(dlgRect.getTxtY().getText())));
 					r.setColor(dlgRect.getColor());
 					r.setInnerColor(dlgRect.getInnerColor());
 				}
@@ -190,8 +187,7 @@ public class PnlDrawing extends JPanel {
 				dlgDonut.setModal(true);
 				dlgDonut.setVisible(true);
 				if (dlgDonut.isOk()) {
-					d.setCenter(new Point(Integer.parseInt(dlgDonut.getTxtX().getText()),
-							Integer.parseInt(dlgDonut.getTxtY().getText())));
+					d.setCenter(new Point(Integer.parseInt(dlgDonut.getTxtX().getText()), Integer.parseInt(dlgDonut.getTxtY().getText())));
 					d.setRadius(Integer.parseInt(dlgDonut.getTxtRadius().getText()));
 					d.setInnerRadius(Integer.parseInt(dlgDonut.getTxtInnerRadius().getText()));
 					d.setColor(dlgDonut.getColor());
@@ -207,8 +203,7 @@ public class PnlDrawing extends JPanel {
 				dlgCircle.setModal(true);
 				dlgCircle.setVisible(true);
 				if (dlgCircle.isOk()) {
-					c.setCenter(new Point(Integer.parseInt(dlgCircle.getTxtX().getText()),
-							Integer.parseInt(dlgCircle.getTxtY().getText())));
+					c.setCenter(new Point(Integer.parseInt(dlgCircle.getTxtX().getText()), Integer.parseInt(dlgCircle.getTxtY().getText())));
 					c.setRadius(Integer.parseInt(dlgCircle.getTxtRadius().getText()));
 					c.setColor(dlgCircle.getColor());
 					c.setInnerColor(dlgCircle.getInnerColor());

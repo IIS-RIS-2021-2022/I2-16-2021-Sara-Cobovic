@@ -2,6 +2,7 @@ package drawing.command;
 
 import drawing.PnlDrawing;
 import drawing.Shape;
+import drawing.logging.Logger;
 
 public class DeleteCommand extends Command {
 
@@ -13,11 +14,13 @@ public class DeleteCommand extends Command {
     void doCommand() {
         pnlDrawing.getShapes().remove(shape);
         pnlDrawing.repaint();
+        Logger.addLog("Deleting " + shape);
     }
 
     @Override
     void undoCommand() {
         pnlDrawing.getShapes().add(shape);
         pnlDrawing.repaint();
+        Logger.addLog("Undo deleting " + shape);
     }
 }

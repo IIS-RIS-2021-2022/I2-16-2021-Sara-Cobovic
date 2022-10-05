@@ -1,8 +1,9 @@
 package drawing.command;
 
 import drawing.*;
+import drawing.logging.Logger;
 
-public class  ModifyCommand extends Command {
+public class ModifyCommand extends Command {
 
     private Shape oldShape;
     private Shape oldShape2;
@@ -110,6 +111,7 @@ public class  ModifyCommand extends Command {
             }
         }
         pnlDrawing.repaint();
+        Logger.addLog("Modify " + shape);
     }
 
     @Override
@@ -204,5 +206,6 @@ public class  ModifyCommand extends Command {
             oldShape2 = c2;
         }
         pnlDrawing.repaint();
+        Logger.addLog("Undo modify " + shape);
     }
 }

@@ -141,7 +141,7 @@ public class Rectangle extends SurfaceShape {
 
 	@Override
 	public String toString() {
-		return "upperLeftPoint=" + upperLeftPoint + ", width=" + width + ", height=" + height;
+		return "Rectangle upperLeftPoint=" + upperLeftPoint + ", width=" + width + ", height=" + height;
 	}
 
 }

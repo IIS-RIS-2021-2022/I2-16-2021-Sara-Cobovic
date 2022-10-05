@@ -123,7 +123,7 @@ public class Circle extends SurfaceShape {
 
 	@Override
 	public String toString() {
-		return "center=" + center + ", radius=" + radius;
+		return "Circle center=" + center + ", radius=" + radius;
 	}
 
 }

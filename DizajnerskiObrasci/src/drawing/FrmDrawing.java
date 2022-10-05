@@ -1,6 +1,7 @@
 package drawing;
 
 import drawing.command.CommandManager;
+import drawing.logging.Logger;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -27,6 +28,7 @@ public class FrmDrawing extends JFrame {
 	JButton btnUndo;
 	JButton colorChange;
 	JButton innerColorChange;
+	JButton btnSeeLog;
 	private ButtonGroup btnGroup = new ButtonGroup();
 
 
@@ -48,7 +50,7 @@ public class FrmDrawing extends JFrame {
 	 */
 	public FrmDrawing() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 483, 316);
+		setBounds(100, 100, 700, 700);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -129,6 +131,19 @@ public class FrmDrawing extends JFrame {
 			}
 		});
 
+		btnSeeLog = new JButton("Logs");
+		toolBar.add(btnSeeLog);
+		btnSeeLog.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				StringBuilder sb = new StringBuilder();
+				for(String log : Logger.getLogs()) {
+					sb.append(log).append("\n");
+				}
+				JOptionPane.showMessageDialog(drawing, sb.toString(), "Logs", JOptionPane.INFORMATION_MESSAGE);
+			}
+		});
+
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(205, 92, 92));
 		contentPane.add(panel, BorderLayout.SOUTH);
@@ -140,6 +155,7 @@ public class FrmDrawing extends JFrame {
 			}
 		});
 		panel.add(btnModify);
+		btnModify.setEnabled(false);
 
 		tglbtnSelection = new JToggleButton("Selection");
 		panel.add(tglbtnSelection);
@@ -153,6 +169,7 @@ public class FrmDrawing extends JFrame {
 			}
 		});
 		panel.add(btnDelete);
+		btnDelete.setEnabled(false);
 	}
 
 
@@ -243,5 +260,13 @@ public class FrmDrawing extends JFrame {
 
 	public JButton getBtnUndo() {
 		return btnUndo;
+	}
+
+	public JButton getBtnDelete() {
+		return btnDelete;
+	}
+
+	public JButton getBtnModify() {
+		return btnModify;
 	}
 }

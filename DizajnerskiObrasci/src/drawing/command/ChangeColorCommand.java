@@ -2,6 +2,7 @@ package drawing.command;
 
 import drawing.PnlDrawing;
 import drawing.Shape;
+import drawing.logging.Logger;
 
 import java.awt.*;
 
@@ -19,11 +20,13 @@ public class ChangeColorCommand extends Command{
         oldColor = shape.getColor();
         shape.setColor(newColor);
         pnlDrawing.repaint();
+        Logger.addLog("Change color " + shape);
     }
 
     @Override
     void undoCommand() {
         shape.setColor(oldColor);
         pnlDrawing.repaint();
+        Logger.addLog("Undo change color " + shape);
     }
 }
