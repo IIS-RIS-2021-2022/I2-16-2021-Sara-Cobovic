@@ -1,4 +1,4 @@
-package drawing;
+package drawing.model;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -90,7 +90,7 @@ public class Circle extends SurfaceShape {
 		}
 
 	}
-	
+
 	public boolean equals(Object obj) {
 		if (obj instanceof Circle) {
 			Circle temp = (Circle) obj;

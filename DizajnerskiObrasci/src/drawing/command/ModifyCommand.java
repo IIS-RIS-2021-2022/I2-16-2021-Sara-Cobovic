@@ -1,15 +1,16 @@
 package drawing.command;
 
-import drawing.*;
 import drawing.logging.Logger;
+import drawing.model.*;
+import drawing.view.PnlDrawing;
 
 public class ModifyCommand extends Command {
 
     private Shape oldShape;
     private Shape oldShape2;
 
-    public ModifyCommand(Shape shape, PnlDrawing pnlDrawing) {
-        super(shape, pnlDrawing);
+    public ModifyCommand(Shape shape, PnlDrawing pnlDrawing, DrawingModel drawingModel) {
+        super(shape, pnlDrawing, drawingModel);
     }
 
     @Override

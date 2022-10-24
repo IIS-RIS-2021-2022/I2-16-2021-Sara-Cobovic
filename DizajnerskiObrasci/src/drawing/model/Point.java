@@ -1,4 +1,4 @@
-package drawing;
+package drawing.model;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -61,14 +61,14 @@ public class Point extends Shape {
 	public boolean contains(int x, int y) {
 		return this.distance(x, y) <= 3;
 	}
-    
+
 	//metoda draw
 	@Override
 	public void draw(Graphics g) {
 		g.setColor(getColor());
 		g.drawLine(this.x - 2, this.y, this.x + 2, this.y);
 		g.drawLine(this.x, this.y - 2, this.x, this.y + 2);
-		
+
 		if(isSelected()) {
 			g.setColor(Color.BLUE);
 			g.drawRect(this.x - 3, this.y - 3, 6, 6);//za iscrtavanje malog kvadrata kada je selektovan point, ovo prvo je tacka gore levo!
@@ -107,7 +107,6 @@ public class Point extends Shape {
 	}
 
 	public String toString() {
-		// (x,y)
 		return "Point x=" + x + ", y=" + y;
 	}
 

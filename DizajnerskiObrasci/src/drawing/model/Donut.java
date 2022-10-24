@@ -1,4 +1,4 @@
-package drawing;
+package drawing.model;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -15,12 +15,12 @@ public class Donut extends Circle {
 		super(center, radius); // mora biti 1. linija koda
 		this.innerRadius = innerRadius;
 	}
-	
+
 	public Donut(Point center, int radius, int innerRadius, Color color, Color innerColor) {
 		this(center, radius, innerRadius);
 		this.setColor(color);
 		this.setInnerColor(innerColor);
-		
+
 	}
 
 	public Donut(Point center, int radius, int innerRadius, boolean selected) {

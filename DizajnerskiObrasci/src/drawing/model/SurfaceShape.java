@@ -1,4 +1,4 @@
-package drawing;
+package drawing.model;
 
 import java.awt.Color;
 import java.awt.Graphics;

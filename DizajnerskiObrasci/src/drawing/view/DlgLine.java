@@ -1,7 +1,8 @@
-package drawing;
+package drawing.view;
+
+import drawing.model.Line;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
@@ -78,29 +79,29 @@ public class DlgLine extends JDialog {
 		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
 		gl_contentPanel.setHorizontalGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPanel.createSequentialGroup().addGroup(gl_contentPanel
-						.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPanel.createSequentialGroup().addGap(35)
-								.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
-										.addGroup(gl_contentPanel.createSequentialGroup()
-												.addPreferredGap(ComponentPlacement.RELATED).addComponent(lblNewLabel)
-												.addGap(18).addComponent(txtEndX, GroupLayout.PREFERRED_SIZE,
-														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-										.addGroup(gl_contentPanel.createSequentialGroup()
-												.addGroup(gl_contentPanel.createParallelGroup(Alignment.TRAILING)
-														.addComponent(lblStartpointXCoordinate)
-														.addComponent(lblStartpointYCoordinate))
-												.addPreferredGap(ComponentPlacement.UNRELATED)
-												.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
-														.addComponent(txtStartY, GroupLayout.PREFERRED_SIZE,
-																GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-														.addComponent(txtStartX, GroupLayout.PREFERRED_SIZE,
-																GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-										.addGroup(gl_contentPanel.createSequentialGroup()
-												.addPreferredGap(ComponentPlacement.RELATED)
-												.addComponent(lblEndpointYCoordinate).addGap(18).addComponent(txtEndY,
-														GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-														GroupLayout.PREFERRED_SIZE))))
-						.addGroup(gl_contentPanel.createSequentialGroup().addGap(120).addComponent(btnOutline)))
+								.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_contentPanel.createSequentialGroup().addGap(35)
+										.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
+												.addGroup(gl_contentPanel.createSequentialGroup()
+														.addPreferredGap(ComponentPlacement.RELATED).addComponent(lblNewLabel)
+														.addGap(18).addComponent(txtEndX, GroupLayout.PREFERRED_SIZE,
+																GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+												.addGroup(gl_contentPanel.createSequentialGroup()
+														.addGroup(gl_contentPanel.createParallelGroup(Alignment.TRAILING)
+																.addComponent(lblStartpointXCoordinate)
+																.addComponent(lblStartpointYCoordinate))
+														.addPreferredGap(ComponentPlacement.UNRELATED)
+														.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
+																.addComponent(txtStartY, GroupLayout.PREFERRED_SIZE,
+																		GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+																.addComponent(txtStartX, GroupLayout.PREFERRED_SIZE,
+																		GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+												.addGroup(gl_contentPanel.createSequentialGroup()
+														.addPreferredGap(ComponentPlacement.RELATED)
+														.addComponent(lblEndpointYCoordinate).addGap(18).addComponent(txtEndY,
+																GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+																GroupLayout.PREFERRED_SIZE))))
+								.addGroup(gl_contentPanel.createSequentialGroup().addGap(120).addComponent(btnOutline)))
 						.addContainerGap(90, Short.MAX_VALUE)));
 		gl_contentPanel.setVerticalGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING).addGroup(gl_contentPanel
 				.createSequentialGroup().addGap(25)

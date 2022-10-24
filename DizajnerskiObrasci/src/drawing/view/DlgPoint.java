@@ -1,8 +1,8 @@
-package drawing;
+package drawing.view;
+
+import drawing.model.Point;
 
 import java.awt.BorderLayout;
-
-import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
@@ -19,7 +19,6 @@ import javax.swing.JTextField;
 import javax.swing.JDesktopPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JColorChooser;
 
 public class DlgPoint extends JDialog {
 
@@ -82,16 +81,16 @@ public class DlgPoint extends JDialog {
 		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
 		gl_contentPanel.setHorizontalGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING).addGroup(
 				gl_contentPanel.createSequentialGroup().addContainerGap(36, Short.MAX_VALUE).addGroup(gl_contentPanel
-						.createParallelGroup(Alignment.TRAILING)
-						.addGroup(gl_contentPanel.createSequentialGroup()
-								.addGroup(gl_contentPanel.createParallelGroup(Alignment.TRAILING).addComponent(lblX)
-										.addComponent(lblY))
-								.addPreferredGap(ComponentPlacement.RELATED))
-						.addGroup(
-								gl_contentPanel.createSequentialGroup()
-										.addComponent(desktopPane, GroupLayout.PREFERRED_SIZE, 1,
-												GroupLayout.PREFERRED_SIZE)
-										.addGap(112)))
+								.createParallelGroup(Alignment.TRAILING)
+								.addGroup(gl_contentPanel.createSequentialGroup()
+										.addGroup(gl_contentPanel.createParallelGroup(Alignment.TRAILING).addComponent(lblX)
+												.addComponent(lblY))
+										.addPreferredGap(ComponentPlacement.RELATED))
+								.addGroup(
+										gl_contentPanel.createSequentialGroup()
+												.addComponent(desktopPane, GroupLayout.PREFERRED_SIZE, 1,
+														GroupLayout.PREFERRED_SIZE)
+												.addGap(112)))
 						.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_contentPanel.createSequentialGroup().addGap(18).addComponent(txtY,
 										GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
@@ -104,19 +103,19 @@ public class DlgPoint extends JDialog {
 						.addGap(63)));
 		gl_contentPanel.setVerticalGroup(gl_contentPanel.createParallelGroup(Alignment.TRAILING).addGroup(
 				gl_contentPanel.createSequentialGroup().addGroup(gl_contentPanel.createParallelGroup(Alignment.TRAILING)
-						.addGroup(gl_contentPanel.createSequentialGroup().addContainerGap().addComponent(desktopPane,
-								GroupLayout.PREFERRED_SIZE, 1, GroupLayout.PREFERRED_SIZE))
-						.addGroup(Alignment.LEADING,
-								gl_contentPanel.createSequentialGroup().addGap(14)
-										.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
-												.addComponent(lblX).addComponent(txtX, GroupLayout.PREFERRED_SIZE,
-														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-										.addGap(44)
-										.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
-												.addComponent(lblY).addComponent(txtY, GroupLayout.PREFERRED_SIZE,
-														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-										.addPreferredGap(ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
-										.addComponent(btnOutline)))
+								.addGroup(gl_contentPanel.createSequentialGroup().addContainerGap().addComponent(desktopPane,
+										GroupLayout.PREFERRED_SIZE, 1, GroupLayout.PREFERRED_SIZE))
+								.addGroup(Alignment.LEADING,
+										gl_contentPanel.createSequentialGroup().addGap(14)
+												.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
+														.addComponent(lblX).addComponent(txtX, GroupLayout.PREFERRED_SIZE,
+																GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+												.addGap(44)
+												.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
+														.addComponent(lblY).addComponent(txtY, GroupLayout.PREFERRED_SIZE,
+																GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+												.addPreferredGap(ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
+												.addComponent(btnOutline)))
 						.addGap(41)));
 		contentPanel.setLayout(gl_contentPanel);
 		{

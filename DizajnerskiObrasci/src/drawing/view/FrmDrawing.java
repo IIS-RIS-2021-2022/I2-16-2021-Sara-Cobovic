@@ -1,4 +1,4 @@
-package drawing;
+package drawing.view;
 
 import drawing.command.CommandManager;
 import drawing.logging.Logger;
@@ -110,26 +110,18 @@ public class FrmDrawing extends JFrame {
 		toolBar.add(new JLabel("Fill:"));
 
 		innerColorChange = new JButton();
-		innerColorChange.setBackground(drawing.getInnerColor());
+		innerColorChange.setBackground(drawing.getDrawingModel().getInnerColor());
 		toolBar.add(innerColorChange);
 
-		innerColorChange.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				drawing.innerColorChange();
-			}
-		});
+		innerColorChange.addActionListener(arg0 -> drawing.innerColorChange());
 
 		toolBar.add(new JLabel("Outline:"));
 
 		colorChange = new JButton();
-		colorChange.setBackground(drawing.getColor());
+		colorChange.setBackground(drawing.getDrawingModel().getColor());
 		toolBar.add(colorChange);
 
-		colorChange.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				drawing.colorChange();
-			}
-		});
+		colorChange.addActionListener(arg0 -> drawing.colorChange());
 
 		btnSeeLog = new JButton("Logs");
 		toolBar.add(btnSeeLog);
@@ -149,11 +141,7 @@ public class FrmDrawing extends JFrame {
 		contentPane.add(panel, BorderLayout.SOUTH);
 
 		btnModify = new JButton("Modify");
-		btnModify.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				drawing.modify();
-			}
-		});
+		btnModify.addActionListener(arg0 -> drawing.modify());
 		panel.add(btnModify);
 		btnModify.setEnabled(false);
 
