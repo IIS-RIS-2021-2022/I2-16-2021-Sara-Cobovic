@@ -1,10 +1,16 @@
 package drawing.model;
 
+import drawing.observer.IListener;
+import drawing.observer.IObserver;
+import drawing.observer.ObserverEvents;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DrawingModel {
+public class DrawingModel implements IObserver {
+
+    private List<IListener> listeners = new ArrayList<>();
 
     private List<Shape> shapes = new ArrayList<>();
     private Shape selected;
@@ -30,6 +36,11 @@ public class DrawingModel {
     }
 
     public void setSelected(Shape selected) {
+        if(selected != null) {
+            notifyObservers(ObserverEvents.SELECTED);
+        } else {
+            notifyObservers(ObserverEvents.DESELECTED);
+        }
         this.selected = selected;
     }
 
@@ -55,5 +66,22 @@ public class DrawingModel {
 
     public void setInnerColor(Color innerColor) {
         this.innerColor = innerColor;
+    }
+
+    @Override
+    public void addObserver(IListener listener) {
+        listeners.add(listener);
+    }
+
+    @Override
+    public void removeObserver(IListener listener) {
+        listeners.remove(listener);
+    }
+
+    @Override
+    public void notifyObservers(Object event) {
+        for (IListener listener : listeners) {
+            listener.update(event);
+        }
     }
 }

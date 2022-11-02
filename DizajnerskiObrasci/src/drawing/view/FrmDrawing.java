@@ -2,6 +2,8 @@ package drawing.view;
 
 import drawing.command.CommandManager;
 import drawing.logging.Logger;
+import drawing.observer.IListener;
+import drawing.observer.ObserverEvents;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -12,7 +14,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 
-public class FrmDrawing extends JFrame {
+public class FrmDrawing extends JFrame implements IListener {
 
 	private PnlDrawing drawing = new PnlDrawing(this);
 	private JPanel contentPane;
@@ -256,5 +258,16 @@ public class FrmDrawing extends JFrame {
 
 	public JButton getBtnModify() {
 		return btnModify;
+	}
+
+	@Override
+	public void update(Object event) {
+		if(event.equals(ObserverEvents.SELECTED)) {
+			btnDelete.setEnabled(true);
+			btnModify.setEnabled(true);
+		} else if (event.equals(ObserverEvents.DESELECTED)) {
+			btnDelete.setEnabled(false);
+			btnModify.setEnabled(false);
+		}
 	}
 }

@@ -23,6 +23,7 @@ public class PnlDrawing extends JPanel {
 			}
 		});
 		this.drawingModel = new DrawingModel();
+		drawingModel.addObserver(frame);
 	}
 
 	protected void thisMouseClicked(MouseEvent e) {

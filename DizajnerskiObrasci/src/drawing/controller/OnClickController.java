@@ -88,8 +88,6 @@ public class OnClickController {
             }
         }
         if(selected != null) {
-            frame.getBtnDelete().setEnabled(true);
-            frame.getBtnModify().setEnabled(true);
             Logger.addLog("Selected " + selected);
         } else if (newShape == null){
             frame.getBtnDelete().setEnabled(false);
