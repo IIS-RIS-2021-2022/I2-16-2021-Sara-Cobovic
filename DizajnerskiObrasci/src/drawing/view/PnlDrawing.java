@@ -7,6 +7,9 @@ import drawing.model.*;
 import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import javax.swing.*;
 
@@ -27,8 +30,7 @@ public class PnlDrawing extends JPanel {
 	}
 
 	protected void thisMouseClicked(MouseEvent e) {
-		OnClickController onClickController = new OnClickController(drawingModel, this);
-		onClickController.onMouseClicked(e);
+		new OnClickController(drawingModel, this).onMouseClicked(e);
 	}
 
 	// paint metoda
@@ -42,14 +44,13 @@ public class PnlDrawing extends JPanel {
 
 	// delete metoda
 	public void delete() {
-		DeleteShapeController deleteShapeController = new DeleteShapeController(drawingModel, this);
-		deleteShapeController.deleteShape();
+		new DeleteShapeController(drawingModel, this).deleteShape();
+
 	}
 
 	// modify metoda
 	public void modify() {
-		ModifyShapeController modifyShapeController = new ModifyShapeController(drawingModel, this);
-		modifyShapeController.modifyShape();
+		new ModifyShapeController(drawingModel, this).modifyShape();
 		repaint();
 	}
 
@@ -58,18 +59,36 @@ public class PnlDrawing extends JPanel {
 	}
 
 	public void colorChange() {
-		InnerColorChangeController innerColorChangeController = new InnerColorChangeController(drawingModel, this);
-		innerColorChangeController.changeInnerColor();
+		new InnerColorChangeController(drawingModel, this).changeInnerColor();
 		repaint();
 	}
 
 	public void innerColorChange() {
-		ColorChangeController colorChangeController = new ColorChangeController(drawingModel, this);
-		colorChangeController.changeColor();
+		new ColorChangeController(drawingModel, this).changeColor();
 		repaint();
 	}
 
 	public DrawingModel getDrawingModel() {
 		return drawingModel;
+	}
+
+	public void toFront() {
+		new ToFrontController(drawingModel).toFront();
+		repaint();
+	}
+
+	public void toBack() {
+		new ToBackController(drawingModel).toBack();
+		repaint();
+	}
+
+	public void bringToFront() {
+		new BringToFrontController(drawingModel).bringToFront();
+		repaint();
+	}
+
+	public void bringToBack() {
+		new BringToBackController(drawingModel).bringToBack();
+		repaint();
 	}
 }

@@ -43,11 +43,11 @@ public class OnClickController {
             if (selected != null) selected.setSelected(true);
             pnlDrawing.repaint();
         } else if (frame.getTglbtnPoint().isSelected()) {
-            newShape = new Point(e.getX(), e.getY(), innerColor);
+            newShape = new Point(e.getX(), e.getY(), color);
         } else if (frame.getTglbtnLine().isSelected()) {
             if (startPoint == null) startPoint = new Point(e.getX(), e.getY());
             else {
-                newShape = new Line(startPoint, new Point(e.getX(), e.getY()), innerColor);
+                newShape = new Line(startPoint, new Point(e.getX(), e.getY()), color);
                 startPoint = null;
             }
 

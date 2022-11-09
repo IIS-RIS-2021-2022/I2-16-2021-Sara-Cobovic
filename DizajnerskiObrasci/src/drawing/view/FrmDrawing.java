@@ -5,32 +5,34 @@ import drawing.logging.Logger;
 import drawing.observer.IListener;
 import drawing.observer.ObserverEvents;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
+import java.awt.*;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.Color;
 
 public class FrmDrawing extends JFrame implements IListener {
 
 	private PnlDrawing drawing = new PnlDrawing(this);
 	private JPanel contentPane;
-	JToggleButton tglbtnPoint;
-	JToggleButton tglbtnLine;
-	JToggleButton tglbtnRectangle;
-	JToggleButton tglbtnCircle;
-	JToggleButton tglbtnDonut;
-	JToggleButton tglbtnSelection;
-	JButton btnModify;
-	JButton btnDelete;
-	JButton btnDo;
-	JButton btnUndo;
-	JButton colorChange;
-	JButton innerColorChange;
-	JButton btnSeeLog;
+	private JToggleButton tglbtnPoint;
+	private JToggleButton tglbtnLine;
+	private JToggleButton tglbtnRectangle;
+	private JToggleButton tglbtnCircle;
+	private JToggleButton tglbtnDonut;
+	private JToggleButton tglbtnSelection;
+	private JButton btnModify;
+	private JButton btnDelete;
+	private JButton btnDo;
+	private JButton btnUndo;
+	private JButton colorChange;
+	private JButton innerColorChange;
+	private JButton btnSeeLog;
+	private JButton btnToFront;
+	private JButton btnToBack;
+	private JButton btnBringToFront;
+	private JButton btnBringToBack;
 	private ButtonGroup btnGroup = new ButtonGroup();
 
 
@@ -52,7 +54,7 @@ public class FrmDrawing extends JFrame implements IListener {
 	 */
 	public FrmDrawing() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 700, 700);
+		setBounds(100, 100, 1000, 700);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -69,14 +71,17 @@ public class FrmDrawing extends JFrame implements IListener {
 		toolBar.add(tglbtnPoint);
 		btnGroup.add(tglbtnPoint);
 
+
 		tglbtnLine = new JToggleButton("Line");
 		toolBar.add(tglbtnLine);
 		btnGroup.add(tglbtnLine);
 
 
+
 		tglbtnRectangle = new JToggleButton("Rectangle");
 		toolBar.add(tglbtnRectangle);
 		btnGroup.add(tglbtnRectangle);
+
 
 
 		tglbtnCircle = new JToggleButton("Circle");
@@ -88,6 +93,8 @@ public class FrmDrawing extends JFrame implements IListener {
 		toolBar.add(tglbtnDonut);
 		btnGroup.add(tglbtnDonut);
 
+		toolBar.add(new JSeparator());
+
 		btnUndo = new JButton("Undo");
 		toolBar.add(btnUndo);
 		btnUndo.addActionListener(new ActionListener() {
@@ -97,6 +104,8 @@ public class FrmDrawing extends JFrame implements IListener {
 			}
 		});
 		btnUndo.setEnabled(false);
+
+
 
 		btnDo = new JButton("Redo");
 		toolBar.add(btnDo);
@@ -108,6 +117,8 @@ public class FrmDrawing extends JFrame implements IListener {
 		});
 		btnDo.setEnabled(false);
 
+		toolBar.add(new JSeparator());
+
 
 		toolBar.add(new JLabel("Fill:"));
 
@@ -116,6 +127,7 @@ public class FrmDrawing extends JFrame implements IListener {
 		toolBar.add(innerColorChange);
 
 		innerColorChange.addActionListener(arg0 -> drawing.innerColorChange());
+		toolBar.add(new JSeparator());
 
 		toolBar.add(new JLabel("Outline:"));
 
@@ -124,6 +136,30 @@ public class FrmDrawing extends JFrame implements IListener {
 		toolBar.add(colorChange);
 
 		colorChange.addActionListener(arg0 -> drawing.colorChange());
+		toolBar.add(new JSeparator());
+
+		btnToFront = new JButton("To Front");
+		toolBar.add(btnToFront);
+		btnToFront.setEnabled(false);
+		btnToFront.addActionListener(arg0 -> drawing.toFront());
+
+		btnToBack = new JButton("To Back");
+		toolBar.add(btnToBack);
+		btnToBack.setEnabled(false);
+		btnToBack.addActionListener(arg0 -> drawing.toBack());
+
+		btnBringToFront = new JButton("Bring to Front");
+		toolBar.add(btnBringToFront);
+		btnBringToFront.setEnabled(false);
+		btnBringToFront.addActionListener(arg0 -> drawing.bringToFront());
+
+		btnBringToBack = new JButton("Bring to Back");
+		toolBar.add(btnBringToBack);
+		btnBringToBack.setEnabled(false);
+		btnBringToBack.addActionListener(arg0 -> drawing.bringToBack());
+
+
+		toolBar.add(new JSeparator());
 
 		btnSeeLog = new JButton("Logs");
 		toolBar.add(btnSeeLog);
@@ -160,6 +196,7 @@ public class FrmDrawing extends JFrame implements IListener {
 		});
 		panel.add(btnDelete);
 		btnDelete.setEnabled(false);
+
 	}
 
 
@@ -265,9 +302,17 @@ public class FrmDrawing extends JFrame implements IListener {
 		if(event.equals(ObserverEvents.SELECTED)) {
 			btnDelete.setEnabled(true);
 			btnModify.setEnabled(true);
+			btnToFront.setEnabled(true);
+			btnToBack.setEnabled(true);
+			btnBringToFront.setEnabled(true);
+			btnBringToBack.setEnabled(true);
 		} else if (event.equals(ObserverEvents.DESELECTED)) {
 			btnDelete.setEnabled(false);
 			btnModify.setEnabled(false);
+			btnToFront.setEnabled(false);
+			btnToBack.setEnabled(false);
+			btnBringToFront.setEnabled(false);
+			btnBringToBack.setEnabled(false);
 		}
 	}
 }
