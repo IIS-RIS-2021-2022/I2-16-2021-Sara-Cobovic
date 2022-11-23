@@ -1,5 +1,6 @@
 package drawing.controller;
 
+import drawing.logging.ILogger;
 import drawing.logging.Logger;
 import drawing.model.DrawingModel;
 import drawing.model.Shape;
@@ -7,7 +8,7 @@ import drawing.model.Shape;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BringToBackController {
+public class BringToBackController implements ILogger {
 
     private DrawingModel drawingModel;
 
@@ -32,6 +33,10 @@ public class BringToBackController {
             drawingModel.getShapes().set(index--, shape);
         }
         drawingModel.getShapes().set(0, drawingModel.getSelected());
-        Logger.addLog("Bring to back " + drawingModel.getSelected());
+    }
+
+    @Override
+    public String log() {
+        return "Bring to back " + drawingModel.getSelected();
     }
 }

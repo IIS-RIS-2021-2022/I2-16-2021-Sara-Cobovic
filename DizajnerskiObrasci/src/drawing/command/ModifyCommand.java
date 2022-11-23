@@ -112,7 +112,7 @@ public class ModifyCommand extends Command {
             }
         }
         pnlDrawing.repaint();
-        Logger.addLog("Modify " + shape);
+        undo = false;
     }
 
     @Override
@@ -207,6 +207,14 @@ public class ModifyCommand extends Command {
             oldShape2 = c2;
         }
         pnlDrawing.repaint();
-        Logger.addLog("Undo modify " + shape);
+        undo = true;
+    }
+
+    @Override
+    public String log() {
+        if (undo) {
+            return "Undo modify " + shape;
+        }
+        return "Modify " + shape;
     }
 }

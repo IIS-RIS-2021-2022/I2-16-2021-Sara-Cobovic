@@ -9,7 +9,7 @@ import drawing.logging.Logger;
 
 import java.awt.*;
 
-public class ChangeInnerColorCommand extends Command{
+public class ChangeInnerColorCommand extends Command {
     private Color oldColor;
     private Color newColor;
 
@@ -30,7 +30,7 @@ public class ChangeInnerColorCommand extends Command{
             c.setInnerColor(newColor);
         }
         pnlDrawing.repaint();
-        Logger.addLog("Change inner color " + shape);
+        undo = false;
     }
 
     @Override
@@ -43,6 +43,14 @@ public class ChangeInnerColorCommand extends Command{
             c.setInnerColor(oldColor);
         }
         pnlDrawing.repaint();
-        Logger.addLog("Undo change inner color " + shape);
+        undo = true;
+    }
+
+    @Override
+    public String log() {
+        if(undo) {
+            return "Undo change inner color " + shape;
+        }
+        return "Change inner color " + shape;
     }
 }

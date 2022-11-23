@@ -1,5 +1,6 @@
 package drawing.controller;
 
+import drawing.command.ChangeColorCommand;
 import drawing.command.ChangeInnerColorCommand;
 import drawing.command.CommandManager;
 import drawing.model.DrawingModel;
@@ -18,10 +19,11 @@ public class ColorChangeController {
     }
 
     public void changeColor() {
-        drawingModel.setInnerColor(JColorChooser.showDialog(null, "Choose a color", null));
-        pnlDrawing.getFrame().getInnerColorChange().setBackground(drawingModel.getInnerColor());
+        drawingModel.setColor(JColorChooser.showDialog(null, "Choose a color", null));
+        pnlDrawing.getFrame().getColorChange().setBackground(drawingModel.getColor());
         if (drawingModel.getSelected() != null) {
-            CommandManager.addCommand(new ChangeInnerColorCommand(drawingModel.getSelected(), pnlDrawing, drawingModel.getInnerColor(), drawingModel));
+            CommandManager.addCommand(new ChangeColorCommand(drawingModel.getSelected(), pnlDrawing, drawingModel.getColor(), drawingModel));
+            drawingModel.getSelected().setColor(drawingModel.getColor());
         }
     }
 }

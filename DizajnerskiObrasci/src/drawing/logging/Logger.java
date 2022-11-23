@@ -5,13 +5,19 @@ import java.util.List;
 
 public class Logger {
 
-    private static List<String> logs = new ArrayList<>();
+    private ILogger logger;
 
-    public static void addLog(String log) {
-        logs.add(log);
+    private List<String> logs = new ArrayList<>();
+
+    public void doLogging() {
+        logs.add(logger.log());
     }
 
-    public static List<String> getLogs() {
+    public List<String> getLogs() {
         return logs;
+    }
+
+    public void setLogger(ILogger logger) {
+        this.logger = logger;
     }
 }

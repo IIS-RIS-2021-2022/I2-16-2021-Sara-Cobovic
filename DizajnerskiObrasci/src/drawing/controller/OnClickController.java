@@ -2,6 +2,7 @@ package drawing.controller;
 
 import drawing.command.AddCommand;
 import drawing.command.CommandManager;
+import drawing.logging.ILogger;
 import drawing.logging.Logger;
 import drawing.model.*;
 import drawing.model.Point;
@@ -14,7 +15,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.Iterator;
 
-public class OnClickController {
+public class OnClickController implements ILogger {
 
     private DrawingModel drawingModel;
     private PnlDrawing pnlDrawing;
@@ -87,18 +88,25 @@ public class OnClickController {
                 JOptionPane.showMessageDialog(frame, "Wrong data type", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
-        if(selected != null) {
-            Logger.addLog("Selected " + selected);
-        } else if (newShape == null){
-            frame.getBtnDelete().setEnabled(false);
-            frame.getBtnModify().setEnabled(false);
-            Logger.addLog("Deselected");
-        }
         drawingModel.setColor(color);
         drawingModel.setInnerColor(innerColor);
         drawingModel.setSelected(selected);
         drawingModel.setStartPoint(startPoint);
-        if (newShape != null) CommandManager.addCommand(new AddCommand(newShape, pnlDrawing, drawingModel));
+        if (newShape != null){
+            CommandManager.addCommand(new AddCommand(newShape, pnlDrawing, drawingModel));
 
+        } else {
+            pnlDrawing.getFrame().getLogger().setLogger(this);
+            pnlDrawing.getFrame().getLogger().doLogging();
+        }
+
+    }
+
+    @Override
+    public String log() {
+        if(drawingModel.getSelected() != null) {
+            return "Selected " + drawingModel.getSelected();
+        }
+        return "Deselected";
     }
 }

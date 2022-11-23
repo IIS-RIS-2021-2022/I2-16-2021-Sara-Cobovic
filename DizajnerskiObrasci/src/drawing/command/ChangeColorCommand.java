@@ -7,7 +7,7 @@ import drawing.logging.Logger;
 
 import java.awt.*;
 
-public class ChangeColorCommand extends Command{
+public class ChangeColorCommand extends Command {
     private Color oldColor;
     private Color newColor;
 
@@ -21,13 +21,21 @@ public class ChangeColorCommand extends Command{
         oldColor = shape.getColor();
         shape.setColor(newColor);
         pnlDrawing.repaint();
-        Logger.addLog("Change color " + shape);
+        undo = false;
     }
 
     @Override
     void undoCommand() {
         shape.setColor(oldColor);
         pnlDrawing.repaint();
-        Logger.addLog("Undo change color " + shape);
+        undo = true;
+    }
+
+    @Override
+    public String log() {
+        if(undo) {
+            return "Undo change color " + shape;
+        }
+        return "Change color " + shape;
     }
 }

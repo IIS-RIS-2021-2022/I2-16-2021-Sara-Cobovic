@@ -35,6 +35,8 @@ public class FrmDrawing extends JFrame implements IListener {
 	private JButton btnBringToBack;
 	private ButtonGroup btnGroup = new ButtonGroup();
 
+	private Logger logger = new Logger();
+
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -167,7 +169,7 @@ public class FrmDrawing extends JFrame implements IListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				StringBuilder sb = new StringBuilder();
-				for(String log : Logger.getLogs()) {
+				for(String log : logger.getLogs()) {
 					sb.append(log).append("\n");
 				}
 				JOptionPane.showMessageDialog(drawing, sb.toString(), "Logs", JOptionPane.INFORMATION_MESSAGE);
@@ -295,6 +297,10 @@ public class FrmDrawing extends JFrame implements IListener {
 
 	public JButton getBtnModify() {
 		return btnModify;
+	}
+
+	public Logger getLogger() {
+		return logger;
 	}
 
 	@Override

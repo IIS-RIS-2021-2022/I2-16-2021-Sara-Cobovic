@@ -1,5 +1,7 @@
 package drawing.command;
 
+import drawing.view.PnlDrawing;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +24,10 @@ public class CommandManager {
     public static void doCommand() {
         if(count < commandStack.size()){
             command.pnlDrawing.getFrame().getBtnUndo().setEnabled(true);
-            commandStack.get(count++).doCommand();
+            Command command = commandStack.get(count++);
+            command.doCommand();
+            command.pnlDrawing.getFrame().getLogger().setLogger(command);
+            command.pnlDrawing.getFrame().getLogger().doLogging();
         }
         if(count==commandStack.size()){
             command.pnlDrawing.getFrame().getBtnDo().setEnabled(false);
@@ -33,7 +38,10 @@ public class CommandManager {
     public static void undoCommand(){
         if(count > 0){
             command.pnlDrawing.getFrame().getBtnDo().setEnabled(true);
-            commandStack.get(--count).undoCommand();
+            Command command = commandStack.get(--count);
+            command.undoCommand();
+            command.pnlDrawing.getFrame().getLogger().setLogger(command);
+            command.pnlDrawing.getFrame().getLogger().doLogging();
         }
         if(count==0){
             command.pnlDrawing.getFrame().getBtnUndo().setEnabled(false);

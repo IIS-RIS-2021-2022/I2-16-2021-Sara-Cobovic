@@ -1,10 +1,11 @@
 package drawing.controller;
 
+import drawing.logging.ILogger;
 import drawing.logging.Logger;
 import drawing.model.DrawingModel;
 import drawing.model.Shape;
 
-public class ToBackController {
+public class ToBackController implements ILogger {
 
     private DrawingModel drawingModel;
 
@@ -23,6 +24,10 @@ public class ToBackController {
         Shape oldShape = drawingModel.getShapes().get(index - 1);
         drawingModel.getShapes().set(index - 1, drawingModel.getSelected());
         drawingModel.getShapes().set(index, oldShape);
-        Logger.addLog("To back " + drawingModel.getSelected());
+    }
+
+    @Override
+    public String log() {
+        return "To back " + drawingModel.getSelected();
     }
 }

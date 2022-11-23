@@ -17,13 +17,21 @@ public class AddCommand extends Command {
     public void doCommand() {
         drawingModel.getShapes().add(shape);
         pnlDrawing.repaint();
-        Logger.addLog("Adding " + shape);
+        undo = false;
     }
 
     @Override
     public void undoCommand() {
         drawingModel.getShapes().remove(shape);
         pnlDrawing.repaint();
-        Logger.addLog("Undo adding " + shape);
+        undo = true;
+    }
+
+    @Override
+    public String log() {
+        if(undo) {
+            return "Undo adding " + shape;
+        }
+        return "Adding " + shape;
     }
 }

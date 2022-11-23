@@ -15,13 +15,21 @@ public class DeleteCommand extends Command {
     void doCommand() {
         drawingModel.getShapes().remove(shape);
         pnlDrawing.repaint();
-        Logger.addLog("Deleting " + shape);
+        undo = false;
     }
 
     @Override
     void undoCommand() {
         drawingModel.getShapes().add(shape);
         pnlDrawing.repaint();
-        Logger.addLog("Undo deleting " + shape);
+        undo = true;
+    }
+
+    @Override
+    public String log() {
+        if(undo) {
+            return "Undo deleting " + shape;
+        }
+        return "Deleting " + shape;
     }
 }

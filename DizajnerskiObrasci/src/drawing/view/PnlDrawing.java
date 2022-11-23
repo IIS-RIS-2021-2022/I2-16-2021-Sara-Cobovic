@@ -2,6 +2,7 @@ package drawing.view;
 
 import drawing.command.*;
 import drawing.controller.*;
+import drawing.logging.ILogger;
 import drawing.model.*;
 
 import java.awt.Graphics;
@@ -30,7 +31,9 @@ public class PnlDrawing extends JPanel {
 	}
 
 	protected void thisMouseClicked(MouseEvent e) {
-		new OnClickController(drawingModel, this).onMouseClicked(e);
+		OnClickController onClickController = new OnClickController(drawingModel, this);
+		onClickController.onMouseClicked(e);
+		repaint();
 	}
 
 	// paint metoda
@@ -45,7 +48,6 @@ public class PnlDrawing extends JPanel {
 	// delete metoda
 	public void delete() {
 		new DeleteShapeController(drawingModel, this).deleteShape();
-
 	}
 
 	// modify metoda
@@ -59,12 +61,12 @@ public class PnlDrawing extends JPanel {
 	}
 
 	public void colorChange() {
-		new InnerColorChangeController(drawingModel, this).changeInnerColor();
+		new ColorChangeController(drawingModel, this).changeColor();
 		repaint();
 	}
 
 	public void innerColorChange() {
-		new ColorChangeController(drawingModel, this).changeColor();
+		new InnerColorChangeController(drawingModel, this).changeInnerColor();
 		repaint();
 	}
 
@@ -73,22 +75,34 @@ public class PnlDrawing extends JPanel {
 	}
 
 	public void toFront() {
-		new ToFrontController(drawingModel).toFront();
+		ToFrontController toFrontController = new ToFrontController(drawingModel);
+		toFrontController.toFront();
+		frame.getLogger().setLogger(toFrontController);
+		frame.getLogger().doLogging();
 		repaint();
 	}
 
 	public void toBack() {
-		new ToBackController(drawingModel).toBack();
+		ToBackController toBackController = new ToBackController(drawingModel);
+		toBackController.toBack();
+		frame.getLogger().setLogger(toBackController);
+		frame.getLogger().doLogging();
 		repaint();
 	}
 
 	public void bringToFront() {
-		new BringToFrontController(drawingModel).bringToFront();
+		BringToFrontController bringToFrontController = new BringToFrontController(drawingModel);
+		bringToFrontController.bringToFront();
+		frame.getLogger().setLogger(bringToFrontController);
+		frame.getLogger().doLogging();
 		repaint();
 	}
 
 	public void bringToBack() {
-		new BringToBackController(drawingModel).bringToBack();
+		BringToBackController bringToBackController = new BringToBackController(drawingModel);
+		bringToBackController.bringToBack();
+		frame.getLogger().setLogger(bringToBackController);
+		frame.getLogger().doLogging();
 		repaint();
 	}
 }
