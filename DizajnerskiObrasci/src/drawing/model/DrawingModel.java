@@ -5,15 +5,16 @@ import drawing.observer.IObserver;
 import drawing.observer.ObserverEvents;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DrawingModel implements IObserver {
+public class DrawingModel implements IObserver, Serializable {
 
-    private List<IListener> listeners = new ArrayList<>();
+    private transient List<IListener> listeners = new ArrayList<>();
 
     private List<Shape> shapes = new ArrayList<>();
-    private Shape selected;
+    private transient Shape selected;
     private Point startPoint;
     private Color color;
     private Color innerColor;
@@ -83,5 +84,9 @@ public class DrawingModel implements IObserver {
         for (IListener listener : listeners) {
             listener.update(event);
         }
+    }
+
+    public void setListeners(List<IListener> listeners) {
+        this.listeners = listeners;
     }
 }

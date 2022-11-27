@@ -33,6 +33,9 @@ public class FrmDrawing extends JFrame implements IListener {
 	private JButton btnToBack;
 	private JButton btnBringToFront;
 	private JButton btnBringToBack;
+	private JButton btnSave;
+	private JButton btnOpen;
+	private JButton btnSaveLogs;
 	private ButtonGroup btnGroup = new ButtonGroup();
 
 	private Logger logger = new Logger();
@@ -56,7 +59,7 @@ public class FrmDrawing extends JFrame implements IListener {
 	 */
 	public FrmDrawing() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1000, 700);
+		setBounds(100, 100, 1100, 700);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -111,12 +114,7 @@ public class FrmDrawing extends JFrame implements IListener {
 
 		btnDo = new JButton("Redo");
 		toolBar.add(btnDo);
-		btnDo.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				CommandManager.doCommand();
-			}
-		});
+		btnDo.addActionListener(e -> CommandManager.doCommand());
 		btnDo.setEnabled(false);
 
 		toolBar.add(new JSeparator());
@@ -163,17 +161,34 @@ public class FrmDrawing extends JFrame implements IListener {
 
 		toolBar.add(new JSeparator());
 
+		btnOpen = new JButton("Open");
+		toolBar.add(btnOpen);
+		btnOpen.addActionListener(e -> {
+			drawing.open();
+		});
+
+		btnSave = new JButton("Save");
+		toolBar.add(btnSave);
+		btnSave.addActionListener(e -> {
+			drawing.save();
+		});
+
+		btnSaveLogs = new JButton("Save logs");
+		toolBar.add(btnSaveLogs);
+		btnSaveLogs.addActionListener(e -> {
+			drawing.saveLogs();
+		});
+
+		toolBar.add(new JSeparator());
+
 		btnSeeLog = new JButton("Logs");
 		toolBar.add(btnSeeLog);
-		btnSeeLog.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				StringBuilder sb = new StringBuilder();
-				for(String log : logger.getLogs()) {
-					sb.append(log).append("\n");
-				}
-				JOptionPane.showMessageDialog(drawing, sb.toString(), "Logs", JOptionPane.INFORMATION_MESSAGE);
+		btnSeeLog.addActionListener(e -> {
+			StringBuilder sb = new StringBuilder();
+			for(String log : logger.getLogs()) {
+				sb.append(log).append("\n");
 			}
+			JOptionPane.showMessageDialog(drawing, sb.toString(), "Logs", JOptionPane.INFORMATION_MESSAGE);
 		});
 
 		JPanel panel = new JPanel();

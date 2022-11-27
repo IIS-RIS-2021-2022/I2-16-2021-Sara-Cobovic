@@ -8,6 +8,7 @@ import drawing.model.*;
 import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -104,5 +105,17 @@ public class PnlDrawing extends JPanel {
 		frame.getLogger().setLogger(bringToBackController);
 		frame.getLogger().doLogging();
 		repaint();
+	}
+
+	public void save() {
+		new SaveController(drawingModel, this).save();
+	}
+
+	public void open() {
+		new OpenController(drawingModel, this).open();
+	}
+
+	public void saveLogs() {
+		new SaveLogsController(this).saveLogs();
 	}
 }

@@ -2,9 +2,10 @@ package drawing.model;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.io.Serializable;
 
 //nadklasa za sve klase
-public abstract class Shape implements Movable, Comparable {
+public abstract class Shape implements Movable, Comparable, Serializable {
 
 	// svaki oblik mora da moze da se selektuje i da ima neku boju zato ide u ovu
 	// nadklasu
