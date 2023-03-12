@@ -1,38 +1,36 @@
 package drawing.controller;
 
+import drawing.command.BringToFrontCommand;
+import drawing.command.CommandManager;
 import drawing.logging.ILogger;
-import drawing.logging.Logger;
 import drawing.model.DrawingModel;
-import drawing.model.Shape;
-
-import java.util.ArrayList;
-import java.util.List;
+import drawing.view.PnlDrawing;
 
 public class BringToFrontController implements ILogger {
 
     private DrawingModel drawingModel;
 
-    public BringToFrontController(DrawingModel drawingModel) {
+    private PnlDrawing pnlDrawing;
+
+    public BringToFrontController(DrawingModel drawingModel, PnlDrawing pnlDrawing) {
         this.drawingModel = drawingModel;
+        this.pnlDrawing = pnlDrawing;
     }
 
     public void bringToFront() {
+        // If not selected
         if (drawingModel.getSelected() == null) {
             return;
         }
-        int index = drawingModel.getShapes().indexOf(drawingModel.getSelected());
-        if (index == drawingModel.getShapes().size() - 1) {
+
+        int currentIndex = drawingModel.getShapes().indexOf(drawingModel.getSelected());
+
+        // If already on top
+        if (currentIndex == drawingModel.getShapes().size() - 1) {
             return;
         }
-        List<Shape> oldShapes = new ArrayList<>();
-        for (int i = index + 1; i < drawingModel.getShapes().size(); i++) {
-            oldShapes.add(drawingModel.getShapes().get(i));
-        }
 
-        for (Shape shape : oldShapes) {
-            drawingModel.getShapes().set(index++, shape);
-        }
-        drawingModel.getShapes().set(drawingModel.getShapes().size() - 1, drawingModel.getSelected());
+        CommandManager.addCommand(new BringToFrontCommand(drawingModel.getSelected(), pnlDrawing, drawingModel, currentIndex));
     }
 
     @Override

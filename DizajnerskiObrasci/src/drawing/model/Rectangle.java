@@ -1,7 +1,6 @@
 package drawing.model;
 
-import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.*;
 
 public class Rectangle extends SurfaceShape {
 
@@ -63,7 +62,6 @@ public class Rectangle extends SurfaceShape {
 	public void fill(Graphics g) {
 		g.setColor(getInnerColor());
 		g.fillRect(this.upperLeftPoint.getX() + 1, this.upperLeftPoint.getY() + 1, this.width - 1, this.height - 1);
-
 	}
 
 	@Override
@@ -79,7 +77,6 @@ public class Rectangle extends SurfaceShape {
 			g.drawRect(this.upperLeftPoint.getX() - 3, this.upperLeftPoint.getY() + this.height - 3, 6, 6);
 			g.drawRect(this.upperLeftPoint.getX() + this.width - 3, this.upperLeftPoint.getY() + this.height - 3, 6, 6);
 		}
-
 	}
 
 	@Override

@@ -1,19 +1,28 @@
 package drawing.controller;
 
-import drawing.command.AddCommand;
-import drawing.command.CommandManager;
-import drawing.logging.ILogger;
-import drawing.logging.Logger;
-import drawing.model.*;
-import drawing.model.Point;
-import drawing.model.Rectangle;
-import drawing.model.Shape;
-import drawing.view.*;
-
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.Iterator;
+
+import javax.swing.*;
+
+import drawing.command.AddCommand;
+import drawing.command.CommandManager;
+import drawing.logging.ILogger;
+import drawing.model.Circle;
+import drawing.model.Donut;
+import drawing.model.DrawingModel;
+import drawing.model.Line;
+import drawing.model.Point;
+import drawing.model.Rectangle;
+import drawing.model.Shape;
+import drawing.model.adapter.HexagonAdapter;
+import drawing.view.DlgCircle;
+import drawing.view.DlgDonut;
+import drawing.view.DlgHexagon;
+import drawing.view.DlgRectangle;
+import drawing.view.FrmDrawing;
+import drawing.view.PnlDrawing;
 
 public class OnClickController implements ILogger {
 
@@ -63,6 +72,17 @@ public class OnClickController implements ILogger {
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(frame, "Wrong data type", "Error", JOptionPane.ERROR_MESSAGE);
             }
+        } else if (frame.getTglbtnHexagon().isSelected()) {
+            DlgHexagon dlg = new DlgHexagon();
+            dlg.setModal(true);
+            dlg.setHexagon(new HexagonAdapter(e.getX(), e.getY(), -1, color, innerColor));
+            dlg.setVisible(true);
+            if (!dlg.isOk()) return;
+            try {
+                newShape = dlg.getHexagon();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(frame, "Wrong data type", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         } else if (frame.getTglbtnCircle().isSelected()) {
             DlgCircle dlg = new DlgCircle();
             dlg.setModal(true);
@@ -71,7 +91,6 @@ public class OnClickController implements ILogger {
             if (!dlg.isOk()) return;
             try {
                 newShape = dlg.getCircle();
-
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(frame, "Wrong data type", "Error", JOptionPane.ERROR_MESSAGE);
             }

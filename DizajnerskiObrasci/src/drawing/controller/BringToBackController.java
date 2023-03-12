@@ -1,38 +1,31 @@
 package drawing.controller;
 
+import drawing.command.BringToBackCommand;
+import drawing.command.CommandManager;
 import drawing.logging.ILogger;
-import drawing.logging.Logger;
 import drawing.model.DrawingModel;
-import drawing.model.Shape;
-
-import java.util.ArrayList;
-import java.util.List;
+import drawing.view.PnlDrawing;
 
 public class BringToBackController implements ILogger {
 
     private DrawingModel drawingModel;
+    private PnlDrawing pnlDrawing;
 
-    public BringToBackController(DrawingModel drawingModel) {
+    public BringToBackController(DrawingModel drawingModel, PnlDrawing pnlDrawing) {
         this.drawingModel = drawingModel;
+        this.pnlDrawing = pnlDrawing;
     }
 
     public void bringToBack() {
         if (drawingModel.getSelected() == null) {
             return;
         }
-        int index = drawingModel.getShapes().indexOf(drawingModel.getSelected());
-        if (index == 0) {
+        int currentIndex = drawingModel.getShapes().indexOf(drawingModel.getSelected());
+        if (currentIndex == 0) {
             return;
         }
-        List<Shape> oldShapes = new ArrayList<>();
-        for (int i = index - 1; i >= 0; i--) {
-            oldShapes.add(drawingModel.getShapes().get(i));
-        }
 
-        for (Shape shape : oldShapes) {
-            drawingModel.getShapes().set(index--, shape);
-        }
-        drawingModel.getShapes().set(0, drawingModel.getSelected());
+        CommandManager.addCommand(new BringToBackCommand(drawingModel.getSelected(), pnlDrawing, drawingModel, currentIndex));
     }
 
     @Override

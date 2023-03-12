@@ -19,7 +19,7 @@ public class InnerColorChangeController {
     }
 
     public void changeInnerColor() {
-        drawingModel.setInnerColor(JColorChooser.showDialog(null, "Choose a color", null));
+        drawingModel.setInnerColor(JColorChooser.showDialog(null, "Choose a color", drawingModel.getInnerColor()));
         pnlDrawing.getFrame().getInnerColorChange().setBackground(drawingModel.getInnerColor());
         if (drawingModel.getSelected() != null) {
             CommandManager.addCommand(new ChangeInnerColorCommand(drawingModel.getSelected(), pnlDrawing, drawingModel.getInnerColor(), drawingModel));

@@ -5,8 +5,8 @@ import java.awt.Graphics;
 
 public class Circle extends SurfaceShape {
 
-	private Point center;
-	private int radius;
+	protected Point center;
+	protected int radius;
 
 	public Circle() {
 
@@ -81,14 +81,17 @@ public class Circle extends SurfaceShape {
 		this.fill(g);
 
 		if (isSelected()) {
-			g.setColor(Color.BLUE);
-			g.drawRect(this.center.getX()-3, this.center.getY()-3, 6, 6);
-			g.drawRect(this.center.getX()-this.radius-3, this.center.getY()-3, 6, 6);
-			g.drawRect(this.center.getX()+this.radius-3, this.center.getY()-3, 6, 6);
-			g.drawRect(this.center.getX()-3, this.center.getY()-this.radius-3, 6, 6);
-			g.drawRect(this.center.getX()-3, this.center.getY()+this.radius-3, 6, 6);
+			drawSelection(g);
 		}
+	}
 
+	protected void drawSelection(Graphics g) {
+		g.setColor(Color.BLUE);
+		g.drawRect(center.getX() - 3, center.getY() - 3, 6, 6);
+		g.drawRect(center.getX() - radius - 3, center.getY() - 3, 6, 6);
+		g.drawRect(center.getX() + radius - 3, center.getY() - 3, 6, 6);
+		g.drawRect(center.getX() - 3, center.getY() - radius - 3, 6, 6);
+		g.drawRect(center.getX() - 3, center.getY() + radius - 3, 6, 6);
 	}
 
 	public boolean equals(Object obj) {

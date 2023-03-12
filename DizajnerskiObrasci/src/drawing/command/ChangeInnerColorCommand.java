@@ -1,13 +1,12 @@
 package drawing.command;
 
-import drawing.model.Circle;
-import drawing.model.DrawingModel;
-import drawing.view.PnlDrawing;
+import java.awt.*;
+
+import drawing.model.*;
 import drawing.model.Rectangle;
 import drawing.model.Shape;
-import drawing.logging.Logger;
-
-import java.awt.*;
+import drawing.model.adapter.HexagonAdapter;
+import drawing.view.PnlDrawing;
 
 public class ChangeInnerColorCommand extends Command {
     private Color oldColor;
@@ -20,14 +19,10 @@ public class ChangeInnerColorCommand extends Command {
 
     @Override
     void doCommand() {
-        if (shape instanceof Rectangle) {
-            Rectangle r = (Rectangle) shape;
-            oldColor = r.getInnerColor();
-            r.setInnerColor(newColor);
-        } else if (shape instanceof Circle) {
-            Circle c = (Circle) shape;
-            oldColor = c.getInnerColor();
-            c.setInnerColor(newColor);
+        if (shape instanceof SurfaceShape) {
+            SurfaceShape s = (SurfaceShape) shape;
+            oldColor = s.getInnerColor();
+            s.setInnerColor(newColor);
         }
         pnlDrawing.repaint();
         undo = false;
@@ -35,12 +30,9 @@ public class ChangeInnerColorCommand extends Command {
 
     @Override
     void undoCommand() {
-        if (shape instanceof Rectangle) {
-            Rectangle r = (Rectangle) shape;
-            r.setInnerColor(oldColor);
-        } else if (shape instanceof Circle) {
-            Circle c = (Circle) shape;
-            c.setInnerColor(oldColor);
+        if (shape instanceof SurfaceShape) {
+            SurfaceShape s = (SurfaceShape) shape;
+            s.setInnerColor(oldColor);
         }
         pnlDrawing.repaint();
         undo = true;

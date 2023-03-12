@@ -19,6 +19,7 @@ public class FrmDrawing extends JFrame implements IListener {
 	private JToggleButton tglbtnPoint;
 	private JToggleButton tglbtnLine;
 	private JToggleButton tglbtnRectangle;
+	private JToggleButton tglbtnHexagon;
 	private JToggleButton tglbtnCircle;
 	private JToggleButton tglbtnDonut;
 	private JToggleButton tglbtnSelection;
@@ -87,12 +88,13 @@ public class FrmDrawing extends JFrame implements IListener {
 		toolBar.add(tglbtnRectangle);
 		btnGroup.add(tglbtnRectangle);
 
-
+		tglbtnHexagon = new JToggleButton("Hexagon");
+		toolBar.add(tglbtnHexagon);
+		btnGroup.add(tglbtnHexagon);
 
 		tglbtnCircle = new JToggleButton("Circle");
 		toolBar.add(tglbtnCircle);
 		btnGroup.add(tglbtnCircle);
-
 
 		tglbtnDonut = new JToggleButton("Donut");
 		toolBar.add(tglbtnDonut);
@@ -118,7 +120,6 @@ public class FrmDrawing extends JFrame implements IListener {
 		btnDo.setEnabled(false);
 
 		toolBar.add(new JSeparator());
-
 
 		toolBar.add(new JLabel("Fill:"));
 
@@ -240,6 +241,14 @@ public class FrmDrawing extends JFrame implements IListener {
 
 	public void setTglbtnRectangle(JToggleButton tglbtnRectangle) {
 		this.tglbtnRectangle = tglbtnRectangle;
+	}
+
+	public JToggleButton getTglbtnHexagon() {
+		return tglbtnHexagon;
+	}
+
+	public void setTglbtnHexagon(final JToggleButton tglbtnHexagon) {
+		this.tglbtnHexagon = tglbtnHexagon;
 	}
 
 	public JToggleButton getTglbtnCircle() {

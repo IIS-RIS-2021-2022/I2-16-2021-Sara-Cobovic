@@ -1,29 +1,31 @@
 package drawing.controller;
 
+import drawing.command.CommandManager;
+import drawing.command.ToFrontCommand;
 import drawing.logging.ILogger;
-import drawing.logging.Logger;
 import drawing.model.DrawingModel;
-import drawing.model.Shape;
+import drawing.view.PnlDrawing;
 
 public class ToFrontController implements ILogger {
 
     private DrawingModel drawingModel;
+    private PnlDrawing pnlDrawing;
 
-    public ToFrontController(DrawingModel drawingModel) {
+    public ToFrontController(DrawingModel drawingModel, PnlDrawing pnlDrawing) {
         this.drawingModel = drawingModel;
+        this.pnlDrawing = pnlDrawing;
     }
 
     public void toFront() {
         if(drawingModel.getSelected() == null) {
             return;
         }
-        int index = drawingModel.getShapes().indexOf(drawingModel.getSelected());
-        if(index == drawingModel.getShapes().size() - 1) {
+        int currentIndex = drawingModel.getShapes().indexOf(drawingModel.getSelected());
+        if(currentIndex == drawingModel.getShapes().size() - 1) {
             return;
         }
-        Shape oldShape = drawingModel.getShapes().get(index + 1);
-        drawingModel.getShapes().set(index + 1, drawingModel.getSelected());
-        drawingModel.getShapes().set(index, oldShape);
+
+        CommandManager.addCommand(new ToFrontCommand(drawingModel.getSelected(), pnlDrawing, drawingModel, currentIndex));
     }
 
     @Override

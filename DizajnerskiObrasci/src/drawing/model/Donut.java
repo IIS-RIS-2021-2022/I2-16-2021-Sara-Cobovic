@@ -1,19 +1,21 @@
 package drawing.model;
 
-import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.*;
+import java.awt.geom.Area;
+import java.awt.geom.Ellipse2D;
 
 public class Donut extends Circle {
 
 	private int innerRadius;
 
-	public Donut() {
+	private Area area;
 
-	}
+	public Donut() {}
 
 	public Donut(Point center, int radius, int innerRadius) {
 		super(center, radius); // mora biti 1. linija koda
 		this.innerRadius = innerRadius;
+		this.area = createArea();
 	}
 
 	public Donut(Point center, int radius, int innerRadius, Color color, Color innerColor) {
@@ -38,6 +40,15 @@ public class Donut extends Circle {
 		this.setInnerColor(innerColor);
 	}
 
+	private Area createArea() {
+		Ellipse2D outer = new Ellipse2D.Double(center.getX() - radius,center.getY() - radius, 2 * radius, 2 * radius);
+		Ellipse2D inner = new Ellipse2D.Double(center.getX() - innerRadius,center.getY() - innerRadius, 2 * innerRadius, 2 * innerRadius);
+
+		Area area = new Area(outer);
+		area.subtract(new Area(inner));
+		return area;
+	}
+
 	public int compareTo(Object o) { // po povrsini poredimo
 		if (o instanceof Donut) {
 			return (int) (this.area() - ((Donut) o).area());
@@ -45,19 +56,25 @@ public class Donut extends Circle {
 		return 0;
 	}
 
-	public void fill(Graphics g) {
-		g.setColor(getInnerColor());
-		super.fill(g);
-		g.setColor(Color.WHITE);
-		g.fillOval(this.getCenter().getX() - this.innerRadius, this.getCenter().getY() - this.innerRadius,
-				this.innerRadius * 2, this.innerRadius * 2);
-	}
-
 	public void draw(Graphics g) {
-		super.draw(g);// crtamo prvo veliki krug
+		Graphics2D g2d = (Graphics2D) g;
+		g2d.setRenderingHint(
+				RenderingHints.KEY_ANTIALIASING,
+				RenderingHints.VALUE_ANTIALIAS_ON);
+
 		g.setColor(getColor());
-		g.drawOval(this.getCenter().getX() - this.innerRadius, this.getCenter().getY() - this.innerRadius,
-				this.innerRadius * 2, this.innerRadius * 2);
+		g2d.draw(area);
+
+		g.setColor(getInnerColor());
+		g2d.fill(area);
+
+		if (isSelected()) {
+			drawSelection(g);
+			g.drawRect(center.getX() - innerRadius - 3, center.getY() - 3, 6, 6);
+			g.drawRect(center.getX() + innerRadius - 3, center.getY() - 3, 6, 6);
+			g.drawRect(center.getX() - 3, center.getY() - innerRadius - 3, 6, 6);
+			g.drawRect(center.getX() - 3, center.getY() + innerRadius - 3, 6, 6);
+		}
 	}
 
 	public double area() {
@@ -65,13 +82,11 @@ public class Donut extends Circle {
 	}
 
 	public boolean contains(int x, int y) {
-		double dFromCenter = this.getCenter().distance(x, y);
-		return super.contains(x, y) && dFromCenter > innerRadius;
+		return area.contains(x, y);
 	}
 
 	public boolean contains(Point p) {
-		double dFromCenter = this.getCenter().distance(p.getX(), p.getY());
-		return super.contains(p.getX(), p.getY()) && dFromCenter > innerRadius;
+		return area.contains(p.getX(), p.getY());
 	}
 
 	public boolean equals(Object obj) {
@@ -98,7 +113,7 @@ public class Donut extends Circle {
 
 	@Override
 	public String toString() {
-		return "Donut center=" + getCenter() + ", radius=" + getRadius() + ", innerRadius=" + innerRadius;
+		return "Donut center=" + center + ", radius=" + radius + ", innerRadius=" + innerRadius;
 	}
 
 }

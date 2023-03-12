@@ -1,19 +1,25 @@
 package drawing.view;
 
-import drawing.command.*;
-import drawing.controller.*;
-import drawing.logging.ILogger;
-import drawing.model.*;
-
-import java.awt.Graphics;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 import javax.swing.*;
+
+import drawing.controller.BringToBackController;
+import drawing.controller.BringToFrontController;
+import drawing.controller.ColorChangeController;
+import drawing.controller.DeleteShapeController;
+import drawing.controller.InnerColorChangeController;
+import drawing.controller.ModifyShapeController;
+import drawing.controller.OnClickController;
+import drawing.controller.OpenController;
+import drawing.controller.SaveController;
+import drawing.controller.SaveLogsController;
+import drawing.controller.ToBackController;
+import drawing.controller.ToFrontController;
+import drawing.model.DrawingModel;
+import drawing.model.Shape;
 
 public class PnlDrawing extends JPanel {
 
@@ -76,7 +82,7 @@ public class PnlDrawing extends JPanel {
 	}
 
 	public void toFront() {
-		ToFrontController toFrontController = new ToFrontController(drawingModel);
+		ToFrontController toFrontController = new ToFrontController(drawingModel, this);
 		toFrontController.toFront();
 		frame.getLogger().setLogger(toFrontController);
 		frame.getLogger().doLogging();
@@ -84,7 +90,7 @@ public class PnlDrawing extends JPanel {
 	}
 
 	public void toBack() {
-		ToBackController toBackController = new ToBackController(drawingModel);
+		ToBackController toBackController = new ToBackController(drawingModel, this);
 		toBackController.toBack();
 		frame.getLogger().setLogger(toBackController);
 		frame.getLogger().doLogging();
@@ -92,7 +98,7 @@ public class PnlDrawing extends JPanel {
 	}
 
 	public void bringToFront() {
-		BringToFrontController bringToFrontController = new BringToFrontController(drawingModel);
+		BringToFrontController bringToFrontController = new BringToFrontController(drawingModel, this);
 		bringToFrontController.bringToFront();
 		frame.getLogger().setLogger(bringToFrontController);
 		frame.getLogger().doLogging();
@@ -100,7 +106,7 @@ public class PnlDrawing extends JPanel {
 	}
 
 	public void bringToBack() {
-		BringToBackController bringToBackController = new BringToBackController(drawingModel);
+		BringToBackController bringToBackController = new BringToBackController(drawingModel, this);
 		bringToBackController.bringToBack();
 		frame.getLogger().setLogger(bringToBackController);
 		frame.getLogger().doLogging();
