@@ -30,8 +30,8 @@ public class AddCommand extends Command {
     @Override
     public String log() {
         if(undo) {
-            return "Undo adding " + shape;
+            return "Undo Add " + shape;
         }
-        return "Adding " + shape;
+        return "Add: " + shape;
     }
 }

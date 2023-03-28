@@ -214,14 +214,14 @@ public class DlgHexagon extends JDialog {
 	public void setHexagon(HexagonAdapter c) {
 		this.hexagon = c;
 		if (isClicked) {// za modify
-			txtX.setText(String.valueOf(c.getCenter().x));
-			txtY.setText(String.valueOf(c.getCenter().y));
+			txtX.setText(String.valueOf(c.getCenter().getX()));
+			txtY.setText(String.valueOf(c.getCenter().getY()));
 			txtRadius.setText(String.valueOf(c.getRadius()));
 			this.color = c.getColor();
 			this.innerColor = c.getInnerColor();
 		} else {
-			txtX.setText(String.valueOf(c.getCenter().x));
-			txtY.setText(String.valueOf(c.getCenter().y));
+			txtX.setText(String.valueOf(c.getCenter().getX()));
+			txtY.setText(String.valueOf(c.getCenter().getY()));
 			txtRadius.setText("");
 		}
 	}

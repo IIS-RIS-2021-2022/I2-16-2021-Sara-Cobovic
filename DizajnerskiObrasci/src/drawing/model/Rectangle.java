@@ -138,7 +138,42 @@ public class Rectangle extends SurfaceShape {
 
 	@Override
 	public String toString() {
-		return "Rectangle upperLeftPoint=" + upperLeftPoint + ", width=" + width + ", height=" + height;
+		return "Rectangle (" +
+				"upperLeftPoint=" + upperLeftPoint +
+				", width=" + width +
+				", height=" + height +
+				", color=" + getInnerColorCode() +
+				", outline=" + getColorCode() +
+				")";
+	}
+
+	public static Rectangle fromLogs(final String line) {
+		Point upperLeftPoint = readPoint("upperLeftPoint", line);
+		int width = readInt("width", line);
+		int height = readInt("height", line);
+		Color color = readColor("color", line);
+		Color outline = readColor("outline", line);
+		return new Rectangle(upperLeftPoint, width, height, outline, color);
+	}
+	@Override
+	public Shape clone() {
+		Rectangle copy = new Rectangle();
+		copy.setUpperLeftPoint(getUpperLeftPoint().clone());
+		copy.setHeight(getHeight());
+		copy.setWidth(getWidth());
+		copy.setInnerColor(getInnerColor());
+		copy.setColor(getColor());
+		return copy;
+	}
+
+	@Override
+	public void modify(final Shape shape) {
+		Rectangle source = (Rectangle) shape;
+		setUpperLeftPoint(source.getUpperLeftPoint());
+		setWidth(source.getWidth());
+		setHeight(source.getHeight());
+		setInnerColor(source.getInnerColor());
+		setColor(source.getColor());
 	}
 
 }

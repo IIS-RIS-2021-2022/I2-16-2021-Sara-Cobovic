@@ -13,6 +13,10 @@ public class Logger {
         logs.add(logger.log());
     }
 
+    public void clearLogs() {
+        logs.clear();
+    }
+
     public List<String> getLogs() {
         return logs;
     }

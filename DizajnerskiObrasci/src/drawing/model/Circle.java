@@ -1,7 +1,6 @@
 package drawing.model;
 
-import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.*;
 
 public class Circle extends SurfaceShape {
 
@@ -21,7 +20,6 @@ public class Circle extends SurfaceShape {
 		this.setColor(color);
 		this.setInnerColor(innerColor);
 	}
-
 
 	public Circle(Point center, int radius, boolean selected) {
 		this(center, radius);
@@ -126,7 +124,38 @@ public class Circle extends SurfaceShape {
 
 	@Override
 	public String toString() {
-		return "Circle center=" + center + ", radius=" + radius;
+		return "Circle (" +
+				"center=" + center +
+				", radius=" + radius +
+				", color=" + getInnerColorCode() +
+				", outline=" + getColorCode() +
+				")";
+	}
+	public static Circle fromLogs(final String line) {
+		Point p = readPoint("center", line);
+		int radius = readInt("radius", line);
+		Color color = readColor("color", line);
+		Color outLine = readColor("outline", line);
+		return new Circle(p, radius, outLine, color);
+	}
+
+	@Override
+	public Shape clone() {
+		Circle copy = new Circle();
+		copy.setCenter(getCenter().clone());
+		copy.setRadius(getRadius());
+		copy.setInnerColor(getInnerColor());
+		copy.setColor(getColor());
+		return copy;
+	}
+
+	@Override
+	public void modify(final Shape shape) {
+		Circle source = (Circle) shape;
+		setRadius(source.getRadius());
+		setCenter(source.getCenter());
+		setInnerColor(source.getInnerColor());
+		setColor(source.getColor());
 	}
 
 }

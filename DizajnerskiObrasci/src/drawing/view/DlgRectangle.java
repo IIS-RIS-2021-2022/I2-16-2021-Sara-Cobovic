@@ -1,23 +1,16 @@
 package drawing.view;
 
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.*;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.border.EmptyBorder;
+
 import drawing.model.Point;
 import drawing.model.Rectangle;
-
-import java.awt.BorderLayout;
-
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import java.awt.Color;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JTextField;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class DlgRectangle extends JDialog {
 
@@ -253,7 +246,6 @@ public class DlgRectangle extends JDialog {
 		this.isClicked = isClicked;
 	}
 
-	// get i set za rect
 	public void setRectangle(Rectangle r) {
 		this.r = r;
 
@@ -264,15 +256,12 @@ public class DlgRectangle extends JDialog {
 			txtHeight.setText(String.valueOf(r.getHeight()));
 			this.color = r.getColor();
 			this.innerColor = r.getInnerColor();
-
 		} else {
 			txtX.setText(String.valueOf(r.getUpperLeftPoint().getX()));
 			txtY.setText(String.valueOf(r.getUpperLeftPoint().getY()));
 			txtWidth.setText("");
 			txtHeight.setText("");
-
 		}
-
 	}
 
 	public Rectangle getRectangle() {

@@ -6,7 +6,7 @@ import drawing.logging.ILogger;
 import drawing.model.DrawingModel;
 import drawing.view.PnlDrawing;
 
-public class BringToBackController implements ILogger {
+public class BringToBackController {
 
     private DrawingModel drawingModel;
     private PnlDrawing pnlDrawing;
@@ -26,10 +26,5 @@ public class BringToBackController implements ILogger {
         }
 
         CommandManager.addCommand(new BringToBackCommand(drawingModel.getSelected(), pnlDrawing, drawingModel, currentIndex));
-    }
-
-    @Override
-    public String log() {
-        return "Bring to back " + drawingModel.getSelected();
     }
 }

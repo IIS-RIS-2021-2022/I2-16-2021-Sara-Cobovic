@@ -74,6 +74,23 @@ public class Line extends Shape {
 
 	}
 
+	@Override
+	public Line clone() {
+		Line copy = new Line();
+		copy.setStartPoint(getStartPoint().clone());
+		copy.setEndPoint(getEndPoint().clone());
+		copy.setColor(getColor());
+		return copy;
+	}
+
+	@Override
+	public void modify(final Shape shape) {
+		Line source = (Line)shape;
+		setStartPoint(source.getStartPoint());
+		setEndPoint(source.getEndPoint());
+		setColor(source.getColor());
+	}
+
 	// equals metoda
 	public boolean equals(Object obj) {
 		if (obj instanceof Line) {
@@ -114,7 +131,16 @@ public class Line extends Shape {
 
 	@Override
 	public String toString() {
-		return "Line startPoint=" + startPoint + ", endPoint=" + endPoint;
+		return "Line (startPoint=" + startPoint + ", endPoint=" + endPoint + ", outline=" + getColorCode() + ")";
 	}
+
+	public static Line fromLogs(final String line) {
+		Point startPoint = readPoint("startPoint", line);
+		Point endPoint = readPoint("endPoint", line);
+		Color outline = readColor("outline", line);
+		return new Line(startPoint, endPoint, outline);
+	}
+
+
 
 }

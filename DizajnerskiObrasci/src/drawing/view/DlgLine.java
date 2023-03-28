@@ -239,13 +239,11 @@ public class DlgLine extends JDialog {
 
 	public void setLine(Line l) {
 		this.l = l;
-
 		txtStartX.setText(String.valueOf(l.getStartPoint().getX()));
 		txtStartY.setText(String.valueOf(l.getStartPoint().getY()));
 		txtEndX.setText(String.valueOf(l.getEndPoint().getX()));
 		txtEndY.setText(String.valueOf(l.getEndPoint().getY()));
 		this.color = l.getColor();
-
 	}
 
 }

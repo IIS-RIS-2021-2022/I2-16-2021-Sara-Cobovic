@@ -18,10 +18,16 @@ public class BringToBackCommand extends Command {
         this.currentIndex = currentIndex;
     }
 
+    public BringToBackCommand(Shape shape, PnlDrawing pnlDrawing, DrawingModel drawingModel) {
+        super(shape, pnlDrawing, drawingModel);
+        this.currentIndex = drawingModel.getShapes().indexOf(shape);
+    }
+
     @Override
     public void doCommand() {
         oldShapes = new ArrayList<>();
         oldIndexes = new ArrayList<>();
+
         int index = currentIndex;
         for (int i = index - 1; i >= 0; i--) {
             oldShapes.add(drawingModel.getShapes().get(i));
@@ -52,8 +58,8 @@ public class BringToBackCommand extends Command {
     @Override
     public String log() {
         if(undo) {
-            return "Undo bring to front " + shape;
+            return "Undo Bring to back " + shape;
         }
-        return "Bring to front " + shape;
+        return "Bring to back: " + shape;
     }
 }

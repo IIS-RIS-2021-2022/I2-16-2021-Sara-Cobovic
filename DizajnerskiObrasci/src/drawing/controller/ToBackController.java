@@ -2,11 +2,10 @@ package drawing.controller;
 
 import drawing.command.CommandManager;
 import drawing.command.ToBackCommand;
-import drawing.logging.ILogger;
 import drawing.model.DrawingModel;
 import drawing.view.PnlDrawing;
 
-public class ToBackController implements ILogger {
+public class ToBackController {
 
     private DrawingModel drawingModel;
     private PnlDrawing pnlDrawing;
@@ -26,10 +25,5 @@ public class ToBackController implements ILogger {
         }
 
         CommandManager.addCommand(new ToBackCommand(drawingModel.getSelected(), pnlDrawing, drawingModel, currentIndex));
-    }
-
-    @Override
-    public String log() {
-        return "To back " + drawingModel.getSelected();
     }
 }

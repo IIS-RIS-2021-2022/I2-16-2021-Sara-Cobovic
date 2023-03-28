@@ -1,39 +1,45 @@
 package drawing.controller;
 
-import drawing.model.DrawingModel;
-import drawing.view.PnlDrawing;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import javax.swing.*;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+
+import drawing.view.PnlDrawing;
 
 public class SaveController {
-
-    private DrawingModel drawingModel;
     private PnlDrawing pnlDrawing;
 
-    public SaveController(DrawingModel drawingModel, PnlDrawing pnlDrawing) {
-        this.drawingModel = drawingModel;
+    public SaveController(PnlDrawing pnlDrawing) {
         this.pnlDrawing = pnlDrawing;
     }
+
     public void save() {
         JFileChooser jfc = new JFileChooser(System.getProperty("user.home") + File.separator + "Desktop");
         String filename;
         if(jfc.showDialog(pnlDrawing, "Save") == JFileChooser.APPROVE_OPTION) {
-            if(!jfc.getSelectedFile().getAbsolutePath().endsWith(".drw")) {
-                filename = jfc.getSelectedFile().getAbsolutePath() + ".drw";
+            if(!jfc.getSelectedFile().getAbsolutePath().endsWith(".txt")) {
+                filename = jfc.getSelectedFile().getAbsolutePath() + ".txt";
             } else {
                 filename = jfc.getSelectedFile().getAbsolutePath();
             }
-            ObjectOutputStream os;
+            FileWriter fw;
             try {
-                os = new ObjectOutputStream(new FileOutputStream(filename));
-                os.writeObject(drawingModel);
+                fw = new FileWriter(filename);
+                fw.write(makeStringOutOfLogs());
+                fw.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    private String makeStringOutOfLogs() {
+        StringBuilder sb = new StringBuilder();
+        for(String log : pnlDrawing.getFrame().getLogger().getLogs()) {
+            sb.append(log).append("\n");
+        }
+        return sb.toString();
     }
 }

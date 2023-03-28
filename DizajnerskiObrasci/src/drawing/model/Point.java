@@ -1,7 +1,6 @@
 package drawing.model;
 
-import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.*;
 
 public class Point extends Shape {
 	private int x;
@@ -29,7 +28,6 @@ public class Point extends Shape {
 	public Point(int x, int y, boolean selected, Color color) {
 		this(x, y, selected);
 		this.setColor(color);
-
 	}
 
 	// distance metoda
@@ -107,7 +105,35 @@ public class Point extends Shape {
 	}
 
 	public String toString() {
-		return "Point x=" + x + ", y=" + y;
+		String toString = "Point (x=" + x + ", y=" + y;
+		if(getColorCode() != null) {
+			toString+=", outline=" + getColorCode();
+		}
+		return toString + ")";
+	}
+
+	public static Point fromLogs(final String line) {
+		int x = readInt("x", line);
+		int y = readInt("y", line);
+		Color outline = readColor("outline", line);
+		return new Point(x, y, outline);
+	}
+
+	@Override
+	public Point clone() {
+		Point copy = new Point();
+		copy.setX(getX());
+		copy.setY(getY());
+		copy.setColor(getColor());
+		return copy;
+	}
+
+	@Override
+	public void modify(final Shape shape) {
+		Point p = (Point)shape;
+		this.x = p.getX();
+		this.y = p.getY();
+		setColor(p.getColor());
 	}
 
 }

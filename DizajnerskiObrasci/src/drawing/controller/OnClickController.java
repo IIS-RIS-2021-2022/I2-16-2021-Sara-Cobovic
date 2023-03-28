@@ -8,7 +8,6 @@ import javax.swing.*;
 
 import drawing.command.AddCommand;
 import drawing.command.CommandManager;
-import drawing.logging.ILogger;
 import drawing.model.Circle;
 import drawing.model.Donut;
 import drawing.model.DrawingModel;
@@ -24,7 +23,7 @@ import drawing.view.DlgRectangle;
 import drawing.view.FrmDrawing;
 import drawing.view.PnlDrawing;
 
-public class OnClickController implements ILogger {
+public class OnClickController {
 
     private DrawingModel drawingModel;
     private PnlDrawing pnlDrawing;
@@ -43,19 +42,25 @@ public class OnClickController implements ILogger {
         Color color = drawingModel.getColor();
         if (frame.getTglbtnSelection().isSelected()) {
             selected = null;
+
             Iterator<Shape> it = drawingModel.getShapes().iterator();
             while (it.hasNext()) {
                 Shape shape = it.next();
                 shape.setSelected(false);
-                if (shape.contains(e.getX(), e.getY())) selected = shape;
-
+                if (shape.contains(e.getX(), e.getY()))
+                    selected = shape;
             }
-            if (selected != null) selected.setSelected(true);
+
+            if (selected != null) {
+                selected.setSelected(true);
+            }
+
             pnlDrawing.repaint();
         } else if (frame.getTglbtnPoint().isSelected()) {
             newShape = new Point(e.getX(), e.getY(), color);
         } else if (frame.getTglbtnLine().isSelected()) {
-            if (startPoint == null) startPoint = new Point(e.getX(), e.getY());
+            if (startPoint == null)
+                startPoint = new Point(e.getX(), e.getY());
             else {
                 newShape = new Line(startPoint, new Point(e.getX(), e.getY()), color);
                 startPoint = null;
@@ -66,7 +71,8 @@ public class OnClickController implements ILogger {
             dlg.setModal(true);
             dlg.setRectangle(new Rectangle(new Point(e.getX(), e.getY()), -1, -1, color, innerColor));
             dlg.setVisible(true);
-            if (!dlg.isOk()) return;
+            if (!dlg.isOk())
+                return;
             try {
                 newShape = dlg.getRectangle();
             } catch (Exception ex) {
@@ -77,7 +83,8 @@ public class OnClickController implements ILogger {
             dlg.setModal(true);
             dlg.setHexagon(new HexagonAdapter(e.getX(), e.getY(), -1, color, innerColor));
             dlg.setVisible(true);
-            if (!dlg.isOk()) return;
+            if (!dlg.isOk())
+                return;
             try {
                 newShape = dlg.getHexagon();
             } catch (Exception ex) {
@@ -88,7 +95,8 @@ public class OnClickController implements ILogger {
             dlg.setModal(true);
             dlg.setCircle(new Circle(new Point(e.getX(), e.getY()), -1, color, innerColor));
             dlg.setVisible(true);
-            if (!dlg.isOk()) return;
+            if (!dlg.isOk())
+                return;
             try {
                 newShape = dlg.getCircle();
             } catch (Exception ex) {
@@ -99,7 +107,8 @@ public class OnClickController implements ILogger {
             dlg.setModal(true);
             dlg.setDonut(new Donut(new Point(e.getX(), e.getY()), -1, -1, color, innerColor));
             dlg.setVisible(true);
-            if (!dlg.isOk()) return;
+            if (!dlg.isOk())
+                return;
             try {
                 newShape = dlg.getDonut();
 
@@ -111,21 +120,8 @@ public class OnClickController implements ILogger {
         drawingModel.setInnerColor(innerColor);
         drawingModel.setSelected(selected);
         drawingModel.setStartPoint(startPoint);
-        if (newShape != null){
+        if (newShape != null) {
             CommandManager.addCommand(new AddCommand(newShape, pnlDrawing, drawingModel));
-
-        } else {
-            pnlDrawing.getFrame().getLogger().setLogger(this);
-            pnlDrawing.getFrame().getLogger().doLogging();
         }
-
-    }
-
-    @Override
-    public String log() {
-        if(drawingModel.getSelected() != null) {
-            return "Selected " + drawingModel.getSelected();
-        }
-        return "Deselected";
     }
 }

@@ -15,7 +15,6 @@ import drawing.controller.ModifyShapeController;
 import drawing.controller.OnClickController;
 import drawing.controller.OpenController;
 import drawing.controller.SaveController;
-import drawing.controller.SaveLogsController;
 import drawing.controller.ToBackController;
 import drawing.controller.ToFrontController;
 import drawing.model.DrawingModel;
@@ -29,10 +28,11 @@ public class PnlDrawing extends JPanel {
 	public PnlDrawing(FrmDrawing frame) {
 		this.frame = frame;
 		addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent arg0) {
-				thisMouseClicked(arg0);
+			public void mouseClicked(MouseEvent e) {
+				thisMouseClicked(e);
 			}
 		});
+
 		this.drawingModel = new DrawingModel();
 		drawingModel.addObserver(frame);
 	}
@@ -84,44 +84,32 @@ public class PnlDrawing extends JPanel {
 	public void toFront() {
 		ToFrontController toFrontController = new ToFrontController(drawingModel, this);
 		toFrontController.toFront();
-		frame.getLogger().setLogger(toFrontController);
-		frame.getLogger().doLogging();
 		repaint();
 	}
 
 	public void toBack() {
 		ToBackController toBackController = new ToBackController(drawingModel, this);
 		toBackController.toBack();
-		frame.getLogger().setLogger(toBackController);
-		frame.getLogger().doLogging();
 		repaint();
 	}
 
 	public void bringToFront() {
 		BringToFrontController bringToFrontController = new BringToFrontController(drawingModel, this);
 		bringToFrontController.bringToFront();
-		frame.getLogger().setLogger(bringToFrontController);
-		frame.getLogger().doLogging();
 		repaint();
 	}
 
 	public void bringToBack() {
 		BringToBackController bringToBackController = new BringToBackController(drawingModel, this);
 		bringToBackController.bringToBack();
-		frame.getLogger().setLogger(bringToBackController);
-		frame.getLogger().doLogging();
 		repaint();
 	}
 
 	public void save() {
-		new SaveController(drawingModel, this).save();
+		new SaveController(this).save();
 	}
 
 	public void open() {
 		new OpenController(drawingModel, this).open();
-	}
-
-	public void saveLogs() {
-		new SaveLogsController(this).saveLogs();
 	}
 }

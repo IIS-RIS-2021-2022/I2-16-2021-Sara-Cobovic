@@ -18,6 +18,11 @@ public class BringToFrontCommand extends Command {
         this.currentIndex = currentIndex;
     }
 
+    public BringToFrontCommand(Shape shape, PnlDrawing pnlDrawing, DrawingModel drawingModel) {
+        super(shape, pnlDrawing, drawingModel);
+        this.currentIndex = drawingModel.getShapes().indexOf(shape);
+    }
+
     @Override
     public void doCommand() {
         oldShapes = new ArrayList<>();
@@ -55,6 +60,6 @@ public class BringToFrontCommand extends Command {
         if(undo) {
             return "Undo bring to front " + shape;
         }
-        return "Bring to front " + shape;
+        return "Bring to front: " + shape;
     }
 }

@@ -22,7 +22,6 @@ public class Donut extends Circle {
 		this(center, radius, innerRadius);
 		this.setColor(color);
 		this.setInnerColor(innerColor);
-
 	}
 
 	public Donut(Point center, int radius, int innerRadius, boolean selected) {
@@ -56,11 +55,13 @@ public class Donut extends Circle {
 		return 0;
 	}
 
+	@Override
 	public void draw(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
-		g2d.setRenderingHint(
-				RenderingHints.KEY_ANTIALIASING,
-				RenderingHints.VALUE_ANTIALIAS_ON);
+
+		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+		g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_NORMALIZE);
 
 		g.setColor(getColor());
 		g2d.draw(area);
@@ -69,7 +70,12 @@ public class Donut extends Circle {
 		g2d.fill(area);
 
 		if (isSelected()) {
-			drawSelection(g);
+			g.setColor(Color.BLUE);
+			g.drawRect(center.getX() - 3, center.getY() - 3, 6, 6);
+			g.drawRect(center.getX() - radius - 3, center.getY() - 3, 6, 6);
+			g.drawRect(center.getX() + radius - 3, center.getY() - 3, 6, 6);
+			g.drawRect(center.getX() - 3, center.getY() - radius - 3, 6, 6);
+			g.drawRect(center.getX() - 3, center.getY() + radius - 3, 6, 6);
 			g.drawRect(center.getX() - innerRadius - 3, center.getY() - 3, 6, 6);
 			g.drawRect(center.getX() + innerRadius - 3, center.getY() - 3, 6, 6);
 			g.drawRect(center.getX() - 3, center.getY() - innerRadius - 3, 6, 6);
@@ -113,7 +119,44 @@ public class Donut extends Circle {
 
 	@Override
 	public String toString() {
-		return "Donut center=" + center + ", radius=" + radius + ", innerRadius=" + innerRadius;
+		return "Donut (" +
+				"center=" + center +
+				", radius=" + radius +
+				", innerRadius=" + innerRadius +
+				", color=" + getInnerColorCode() +
+				", outline=" + getColorCode() +
+				")";
 	}
 
+	public static Donut fromLogs(final String line) {
+		Point center = readPoint("center", line);
+		int radius = readInt("radius", line);
+		int innerRadius = readInt("innerRadius", line);
+		Color color = readColor("color", line);
+		Color outline = readColor("outline", line);
+		return new Donut(center, radius, innerRadius, outline, color);
+	}
+
+	@Override
+	public Shape clone() {
+		Donut copy = new Donut();
+		copy.setCenter(getCenter().clone());
+		copy.setRadius(getRadius());
+		copy.setInnerRadius(getInnerRadius());
+		copy.setInnerColor(getInnerColor());
+		copy.setColor(getColor());
+		copy.area = createArea();
+		return copy;
+	}
+
+	@Override
+	public void modify(final Shape shape) {
+		Donut source = (Donut) shape;
+		setRadius(source.getRadius());
+		setInnerRadius(source.getInnerRadius());
+		setCenter(source.getCenter());
+		setInnerColor(source.getInnerColor());
+		setColor(source.getColor());
+		this.area = createArea();
+	}
 }

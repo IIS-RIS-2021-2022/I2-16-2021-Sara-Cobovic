@@ -34,8 +34,8 @@ public class ChangeColorCommand extends Command {
     @Override
     public String log() {
         if(undo) {
-            return "Undo change color " + shape;
+            return "Undo Change color " + shape;
         }
-        return "Change color " + shape;
+        return "Change color: " + shape;
     }
 }

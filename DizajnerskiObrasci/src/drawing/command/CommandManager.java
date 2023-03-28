@@ -11,11 +11,16 @@ public class CommandManager {
     static final List<Command> commandStack = new ArrayList<>();
     static int count = 0;
 
+    public static void clearCommands() {
+        commandStack.clear();
+        count = 0;
+    }
+
     public static void addCommand(Command command) {
-        if(count < commandStack.size()) {
-            commandStack.clear();
-            count = 0;
+        while(commandStack.size() > count) {
+            commandStack.remove(commandStack.size()-1);
         }
+
         CommandManager.command = command;
         commandStack.add(command);
         doCommand();

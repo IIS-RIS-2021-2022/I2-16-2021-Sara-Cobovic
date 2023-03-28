@@ -36,7 +36,6 @@ public class FrmDrawing extends JFrame implements IListener {
 	private JButton btnBringToBack;
 	private JButton btnSave;
 	private JButton btnOpen;
-	private JButton btnSaveLogs;
 	private ButtonGroup btnGroup = new ButtonGroup();
 
 	private Logger logger = new Logger();
@@ -172,12 +171,6 @@ public class FrmDrawing extends JFrame implements IListener {
 		toolBar.add(btnSave);
 		btnSave.addActionListener(e -> {
 			drawing.save();
-		});
-
-		btnSaveLogs = new JButton("Save logs");
-		toolBar.add(btnSaveLogs);
-		btnSaveLogs.addActionListener(e -> {
-			drawing.saveLogs();
 		});
 
 		toolBar.add(new JSeparator());

@@ -2,9 +2,11 @@ package drawing.command;
 
 import java.awt.*;
 
-import drawing.model.*;
+import drawing.model.Circle;
+import drawing.model.DrawingModel;
 import drawing.model.Rectangle;
 import drawing.model.Shape;
+import drawing.model.SurfaceShape;
 import drawing.model.adapter.HexagonAdapter;
 import drawing.view.PnlDrawing;
 
@@ -41,8 +43,8 @@ public class ChangeInnerColorCommand extends Command {
     @Override
     public String log() {
         if(undo) {
-            return "Undo change inner color " + shape;
+            return "Undo Change inner color " + shape;
         }
-        return "Change inner color " + shape;
+        return "Change inner color: " + shape;
     }
 }

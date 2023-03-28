@@ -227,12 +227,10 @@ public class DlgCircle extends JDialog {
 			txtRadius.setText(String.valueOf(c.getRadius()));
 			this.color = c.getColor();
 			this.innerColor = c.getInnerColor();
-
 		} else {
 			txtX.setText(String.valueOf(c.getCenter().getX()));
 			txtY.setText(String.valueOf(c.getCenter().getY()));
 			txtRadius.setText("");
-
 		}
 
 	}

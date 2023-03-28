@@ -15,6 +15,11 @@ public class ToBackCommand extends Command {
         this.currentIndex = currentIndex;
     }
 
+    public ToBackCommand(Shape shape, PnlDrawing pnlDrawing, DrawingModel drawingModel) {
+        super(shape, pnlDrawing, drawingModel);
+        this.currentIndex = drawingModel.getShapes().indexOf(shape);
+    }
+
     @Override
     public void doCommand() {
         oldIndex = currentIndex - 1;
@@ -40,8 +45,8 @@ public class ToBackCommand extends Command {
     @Override
     public String log() {
         if(undo) {
-            return "Undo bring to front " + shape;
+            return "Undo To back " + shape;
         }
-        return "Bring to front " + shape;
+        return "To back: " + shape;
     }
 }

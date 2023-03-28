@@ -28,8 +28,8 @@ public class DeleteCommand extends Command {
     @Override
     public String log() {
         if(undo) {
-            return "Undo deleting " + shape;
+            return "Undo Delete " + shape;
         }
-        return "Deleting " + shape;
+        return "Delete: " + shape;
     }
 }

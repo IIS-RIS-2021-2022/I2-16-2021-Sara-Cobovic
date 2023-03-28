@@ -2,11 +2,10 @@ package drawing.controller;
 
 import drawing.command.CommandManager;
 import drawing.command.ToFrontCommand;
-import drawing.logging.ILogger;
 import drawing.model.DrawingModel;
 import drawing.view.PnlDrawing;
 
-public class ToFrontController implements ILogger {
+public class ToFrontController {
 
     private DrawingModel drawingModel;
     private PnlDrawing pnlDrawing;
@@ -26,10 +25,5 @@ public class ToFrontController implements ILogger {
         }
 
         CommandManager.addCommand(new ToFrontCommand(drawingModel.getSelected(), pnlDrawing, drawingModel, currentIndex));
-    }
-
-    @Override
-    public String log() {
-        return "To front " + drawingModel.getSelected();
     }
 }
